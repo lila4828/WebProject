@@ -1,7 +1,6 @@
 package com.example.webproject.entity;
 
 import lombok.*;
-import org.hibernate.annotations.Parent;
 import javax.persistence.*;
 import java.util.Date;
 
