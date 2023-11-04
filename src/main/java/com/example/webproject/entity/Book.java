@@ -1,6 +1,7 @@
 package com.example.webproject.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ public class Book {
     private Long isbn;
 
     @Column(nullable = false)
-    private String bookName;
+    public String bookName;
 
     @Column(nullable = false)
     private String author;
@@ -31,13 +32,13 @@ public class Book {
     private Date year;
 
     @Column(nullable = false)
-    private String loanAvailability;
+    private Boolean loanAvailability;
 
     @Column(nullable = false)
-    private String newBookAvailability;
+    private Boolean newBookAvailability;
 
     @Column
-    private Integer numberLoan;
-
+    @ColumnDefault("0")
+    private Long numberLoan;
 
 }

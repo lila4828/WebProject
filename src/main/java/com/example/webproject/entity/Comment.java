@@ -15,11 +15,12 @@ import javax.persistence.*;
 public class Comment {
 
     @Id
-    private Integer CommentId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long CommentId;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="memberId", referencedColumnName = "memberId", nullable = false)
-    Member Member;
+    Member memberId;
 
     @Column
     private String comment;

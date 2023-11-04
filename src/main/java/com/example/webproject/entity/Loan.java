@@ -16,7 +16,7 @@ public class Loan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer loanNumber;
+    private Long loanNumber;
 
     @Column(nullable = false)
     private Date dateLoan;
@@ -25,14 +25,14 @@ public class Loan {
     private Date returnDate;
 
     @Column
-    private Integer numberExtensions;
+    private Long numberExtensions;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="memberId", referencedColumnName = "memberId")
-    Member Member;
+    Member memberID;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="isbn", referencedColumnName = "isbn")
-    Book Book;
+    Book isbn;
 }
 

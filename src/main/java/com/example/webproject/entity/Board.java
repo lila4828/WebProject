@@ -16,7 +16,7 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer boardNumber;
+    private Long boardNumber;
 
     @Column(nullable = false)
     private String title;
@@ -26,10 +26,10 @@ public class Board {
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="memberId", referencedColumnName = "memberId", nullable = false)
-    Member Member;
+    Member memberId;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="CommentId", referencedColumnName = "CommentId")
-    Comment Comment;
+    Comment commentId;
 
 }

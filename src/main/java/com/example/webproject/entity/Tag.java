@@ -17,7 +17,7 @@ public class Tag {
     @Id
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="isbn", referencedColumnName = "isbn")
-    Book Book;
+    Book isbn;
 
     @Column
     private String tag;

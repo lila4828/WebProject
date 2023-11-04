@@ -16,7 +16,7 @@ public class Announcement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer noticeNumber;
+    private Long noticeNumber;
 
     @Column(nullable = false)
     private String noticeTitle;
