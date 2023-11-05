@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,13 +19,8 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
-    public Announcement getAnnouncement(Long id) {
-        Optional<Announcement> announcement = announcementRepository.findById(id);
-        if(announcement.isPresent()) {
-            return announcement.get();
-        } else {
-            throw new EntityNotFoundException();
-        }
+    public List<Announcement> getAnnouncementList() {
+        return announcementRepository.findAll();
     }
 
     @Override
@@ -35,7 +31,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
-    public Announcement changNoticeContent(Long id, String newNoticeContent) {
+    public Announcement changeNoticeContent(Long id, String newNoticeContent) {
         Optional<Announcement> oldAnnouncement = announcementRepository.findById(id);
         Announcement newAnnouncement;
         if(oldAnnouncement.isPresent()) {

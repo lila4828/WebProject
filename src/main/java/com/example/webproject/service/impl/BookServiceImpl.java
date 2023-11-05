@@ -66,7 +66,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book changBook(Long isbn, Book newbook) {
+    public Book changeBook(Long isbn, Book newbook) {
         Optional<Book> oldBook = bookRepository.findById(isbn);
         Book newBook;
         if(oldBook.isPresent()) {

@@ -10,7 +10,7 @@ public interface LoanService {
 
     public Loan saveLoan(Loan loan);    // 대출 하기
 
-    public Loan extenLoan(Long id); // 대출 횟수 늘리기
+    public Loan extendLoan(Long id); // 대출 횟수 늘리기
 
     public Loan returnLoan(Long id, Date date); // 대출 반납하기
 

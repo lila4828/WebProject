@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,13 +20,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Board getBoard(Long id) {
-        Optional<Board> board = boardRepository.findById(id);
-        if(board.isPresent()) {
-            return board.get();
-        } else {
-            throw new EntityNotFoundException();
-        }
+    public List<Board> getBoardList() {
+        return boardRepository.findAll();
     }
 
     @Override
@@ -36,7 +32,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Board changBoard(Long id, Board newboard) {
+    public Board changeBoard(Long id, Board newboard) {
         Optional<Board> oldBoard = boardRepository.findById(id);
         Board newBoard;
         if(oldBoard.isPresent()) {

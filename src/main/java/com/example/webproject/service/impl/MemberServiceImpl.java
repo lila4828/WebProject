@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member changMember(String id, Member newmember) {
+    public Member changeMember(String id, Member newmember) {
         Optional<Member> oldMember = memberRepository.findById(id);
         Member newMember;
         if(oldMember.isPresent()) {
@@ -50,7 +50,7 @@ public class MemberServiceImpl implements MemberService {
         return newMember;
     }
     @Override
-    public Member changPassword(String id, String password) {
+    public Member changePassword(String id, String password) {
         Optional<Member> oldMember = memberRepository.findById(id);
         Member newMember;
         if(oldMember.isPresent()) {

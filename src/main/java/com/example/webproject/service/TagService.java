@@ -1,9 +1,7 @@
 package com.example.webproject.service;
 
-import com.example.webproject.entity.Book;
 import com.example.webproject.entity.Tag;
 
-import java.util.List;
 
 public interface TagService {
 
