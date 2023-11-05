@@ -37,7 +37,7 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public Loan extenLoan(Long id) {
+    public Loan extendLoan(Long id) {
         Optional<Loan> oldLoan = loanRepository.findById(id);
         Loan newLoan;
         if(oldLoan.isPresent()) {

@@ -35,7 +35,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
-    public Announcement changNoticeContent(Long id, String newNoticeContent) {
+    public Announcement changeNoticeContent(Long id, String newNoticeContent) {
         Optional<Announcement> oldAnnouncement = announcementRepository.findById(id);
         Announcement newAnnouncement;
         if(oldAnnouncement.isPresent()) {

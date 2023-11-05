@@ -36,7 +36,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Board changBoard(Long id, Board newboard) {
+    public Board changeBoard(Long id, Board newboard) {
         Optional<Board> oldBoard = boardRepository.findById(id);
         Board newBoard;
         if(oldBoard.isPresent()) {

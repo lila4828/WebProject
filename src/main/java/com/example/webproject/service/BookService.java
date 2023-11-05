@@ -17,7 +17,7 @@ public interface BookService {
     
     public Book addTag(Long isbn, Tag tagId);  // 책에 태그 추가
 
-    public Book changBook(Long isbn, Book newbook); // 책 이름, 저자, 출시년도, 대출 가능 여부, 신규도서 여부 수정
+    public Book changeBook(Long isbn, Book newbook); // 책 이름, 저자, 출시년도, 대출 가능 여부, 신규도서 여부 수정
 
     public void deleteBook(Long isbn);  // 책 지우기
 

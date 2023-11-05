@@ -29,7 +29,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     @Override
-    public Administrator changPassword(String adminId, String newAdminPassword) {
+    public Administrator changePassword(String adminId, String newAdminPassword) {
         Optional<Administrator> oldAdmin = administratorRepository.findById(adminId);
         Administrator newAdmin;
         if(oldAdmin.isPresent()) {

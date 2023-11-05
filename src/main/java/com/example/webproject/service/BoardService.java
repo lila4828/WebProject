@@ -7,7 +7,7 @@ public interface BoardService {
 
     public Board saveBoard(Board board);    // 게시판 만들기
 
-    public Board changBoard(Long id, Board newBoard);   // 게시판 내용변경
+    public Board changeBoard(Long id, Board newBoard);   // 게시판 내용변경
 
     public void deleteBoard(Long id);   // 게시판 지우기
 }
