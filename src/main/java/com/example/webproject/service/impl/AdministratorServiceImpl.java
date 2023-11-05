@@ -4,10 +4,12 @@ import com.example.webproject.entity.Administrator;
 import com.example.webproject.repository.AdministratorRepository;
 import com.example.webproject.service.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
+@Service
 public class AdministratorServiceImpl implements AdministratorService {
 
     private final AdministratorRepository administratorRepository;

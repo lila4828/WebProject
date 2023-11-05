@@ -1,18 +1,21 @@
 package com.example.webproject.service.impl;
 
 import com.example.webproject.entity.Book;
+import com.example.webproject.entity.Tag;
 import com.example.webproject.repository.BookRepository;
 import com.example.webproject.service.bookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
-public class bookServiceImpl implements bookService {
+@Service
+public class BookServiceImpl implements bookService {
 
     private final BookRepository bookRepository;
     @Autowired
-    public bookServiceImpl(BookRepository bookrepository) {
+    public BookServiceImpl(BookRepository bookrepository) {
         this.bookRepository = bookrepository;
     }
 
@@ -27,10 +30,33 @@ public class bookServiceImpl implements bookService {
     }
 
     @Override
+    public Book getBookList(String bookName) {
+        Optional<Book> book = bookRepository.findByBookName(bookName);
+        if(book.isPresent()) {
+            return book.get();
+        } else {
+            throw new EntityNotFoundException();
+        }
+    }
+
+    @Override
     public Book saveBook(Book book) {
         Book saveBook = bookRepository.save(book);
         System.out.println(saveBook);
         return saveBook;
+    }
+
+    @Override
+    public Book addTag(Long isbn, Tag tagId) {
+        Optional<Book> oldBook = bookRepository.findById(isbn);
+        Book newBook;
+        if(oldBook.isPresent()) {
+            newBook = oldBook.get();
+            newBook.setTag(tagId);
+        } else {
+            throw new EntityNotFoundException();
+        }
+        return newBook;
     }
 
     @Override

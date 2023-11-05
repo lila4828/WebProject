@@ -4,10 +4,12 @@ import com.example.webproject.entity.Member;
 import com.example.webproject.repository.MemberRepository;
 import com.example.webproject.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
+@Service
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
@@ -48,12 +50,12 @@ public class MemberServiceImpl implements MemberService {
         return newMember;
     }
     @Override
-    public Member changPassword(String id, String newpassword) {
+    public Member changPassword(String id, String password) {
         Optional<Member> oldMember = memberRepository.findById(id);
         Member newMember;
         if(oldMember.isPresent()) {
             newMember = oldMember.get();
-            newMember.setMemberPassword(newpassword);
+            newMember.setMemberPassword(password);
         } else {
             throw new EntityNotFoundException();
         }

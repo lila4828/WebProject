@@ -4,10 +4,12 @@ import com.example.webproject.entity.Announcement;
 import com.example.webproject.repository.AnnouncementRepository;
 import com.example.webproject.service.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
+@Service
 public class AnnouncementServiceImpl implements AnnouncementService {
     private final AnnouncementRepository announcementRepository;
     @Autowired

@@ -4,10 +4,12 @@ import com.example.webproject.entity.Comment;
 import com.example.webproject.repository.CommentRepository;
 import com.example.webproject.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
+@Service
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;

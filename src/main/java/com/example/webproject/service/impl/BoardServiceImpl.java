@@ -4,10 +4,12 @@ import com.example.webproject.entity.Board;
 import com.example.webproject.repository.BoardRepository;
 import com.example.webproject.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
+@Service
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;

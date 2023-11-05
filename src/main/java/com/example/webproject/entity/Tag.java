@@ -15,9 +15,8 @@ import javax.persistence.*;
 public class Tag {
 
     @Id
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name="isbn", referencedColumnName = "isbn")
-    Book isbn;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long TagId;
 
     @Column
     private String tag;

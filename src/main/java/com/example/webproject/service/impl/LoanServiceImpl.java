@@ -4,11 +4,13 @@ import com.example.webproject.entity.Loan;
 import com.example.webproject.repository.LoanRepository;
 import com.example.webproject.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Date;
 import java.util.Optional;
 
+@Service
 public class LoanServiceImpl implements LoanService {
 
     private final LoanRepository loanRepository;
