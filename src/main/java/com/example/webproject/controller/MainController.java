@@ -12,23 +12,9 @@ import java.util.List;
 
 @Controller
 public class MainController {
-    @Autowired
-    BookService bookService;
-    @Autowired
-    BookRepository bookRepository;
-
     @GetMapping("/")
     public String mainView() {
         return "view/homepage";
-    }
-
-    @GetMapping("/search")
-    public String search(Model model) {
-        List<Book> bookList =  bookService.getBookList();
-        Long bookCount = bookService.getCountBook();
-        model.addAttribute("bookList", bookList);
-        model.addAttribute("bookCount", bookCount);
-        return "view/searchpage";
     }
 
 }
