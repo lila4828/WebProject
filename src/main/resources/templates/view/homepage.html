@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en", xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>도서관리시스템</title>
     <div>
-        <h2><p style="text-align:center">도서 관리 시스템</p></h2>
-        <p style="text-align:right"><button style="background: black;color: white;padding:5px 20px;" onclick="location.href='loginpage.html'">login</button></p>
+        <h2><p style="text-align:center" th:href="@{/}">도서 관리 시스템</p></h2>
+        <p style="text-align:right"><a href="http://localhost:8080/login"><button style="background: black;color: white;padding:5px 20px;">login</button></a>
     </div>
     <style>
         .button-container {
@@ -20,10 +20,10 @@
 </head>
 <body>
     <div class="button-container">
-            <button class="main_btn" onclick="location.href='loanpage.html'">대출</button>&nbsp;
-            <button class="main_btn" onclick="location.href='returnpage.html'">대출 반납/연장</button>&nbsp;
-            <button class="main_btn" onclick="location.href='searchpage.html'">자료 검색</button>&nbsp;
-            <button class="main_btn" onclick="location.href='board.html'">게시판</button>
+            <a href="http://localhost:8080/loan"><button class="main_btn">대출</button></a>&nbsp;
+            <a href="http://localhost:8080/return"><button class="main_btn">대출 반납/연장</button></a>&nbsp;
+            <a href="http://localhost:8080/search"><button class="main_btn">자료 검색</button></a>&nbsp;
+            <a href="http://localhost:8080/board"><button class="main_btn">자료 게시판</button></a>
     </div>
 </body>
 </html>

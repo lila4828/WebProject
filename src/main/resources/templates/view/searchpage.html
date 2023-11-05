@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en", xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>통합 검색 페이지</title>
@@ -11,60 +11,46 @@
     </style>
 </head>
 <body>
-<div id="search_box" style="text-align: center; padding-top: 5px;">
-    <form action="search_result" autocomplete="off">
-        <select name="type">
-            <option selected value="">검색 내용 입력</option>
-            <option value="title">제목</option>
-            <option value="author">저자</option>
-            <option value="tag">태그</option>
-        </select>
-        <input class=textform type="text" name=search size="40" required="required" placeholder="통합 검색어를 입력하시오">
-        <input type="button" onclick="getSearchList()" class="btn btn-primary" value="검색"></input>
-    </form>
-</div>
-<div id="search_result" style="text-align: left; padding-top: 5px;">
-    <p class="total-text">해당되는 자료는 총 <strong class="ikc-search-result-count">30</strong>개의 대한 검색결과입니다. </p>
-</div>
+    <div id="search_box" style="text-align: center; padding-top: 5px;">
+        <form th:action="@{/search}" method="post" >
+            <select name="type">
+                <option selected value="">검색 내용 입력</option>
+                <option value="title">제목</option>
+                <option value="author">저자</option>
+                <option value="tag">태그</option>
+            </select>
 
-<div class="list-area">
-    <ul class="result-list">
-        <li class="result-item">
-            <div class="thumbnail" isbn="9788960881570">
-                <div class="image">
-                    <img src="http://placehold.it/150X150" alt="표지" style="vertical-align:middle">
-                </div>
-                <dl class="book-data">
-                    <dd>마리아DB 따라잡기</dd>
-                    <dd>저자 | 장정우  발행년도 | 2022  태그 | 컴퓨터공학</dd>
-                    <dd class="book-status">
-                        <div class="left">
-                            자료상태 | <span class="status available">대출 가능</span>
-                            신규 도서 여부 | <span class="new_book">신규 도서</span>
-                        </div>
-                    </dd>
-                </dl>
+            <input class=textform type="text" name=search size="40" required="required" placeholder="통합 검색어를 입력하시오">
+            <input type="button" class="btn btn-primary" value="검색">
+
+            <div id="search_result" style="text-align: left; padding-top: 5px;">
+                <p class="total-text">해당되는 자료는 총 <strong th:text="${bookCount}" ></strong>개의 대한 검색결과입니다. </p>
+                <table  cellpadding="3" cellspacing="1" border="0" class="table_style1" width="650" style=" width: 1100px; overflow: hidden; margin: 0 auto; padding: 0 0;">
+                    <tbody>
+                    <tr class="book-data">
+                        <td class="table_img">img</td>
+                        <td class="table_style1_td2">isbn</td>
+                        <td class="table_style1_td2">책이름</td>
+                        <td class="table_style1_td2">저자</td>
+                        <td class="table_style1_td2">발행년도</td>
+                        <td class="table_style1_td2">자료상태</td>
+                        <td class="table_style1_td2">신규 도서 여부</td>
+                        <td class="table_style1_td2">태그</td>
+                    </tr>
+                    <tr th:each="book : ${bookList}" align="center">
+                        <td><img src="http://placehold.it/150X150" alt="표지" style="vertical-align:middle"></td>
+                        <td th:text="${book.isbn}"></td>
+                        <td th:text="${book.bookName}"></td>
+                        <td th:text="${book.author}"></td>
+                        <td th:text="${book.year}"></td>
+                        <td th:text="${book.loanAvailability}"></td>
+                        <td th:text="${book.newBookAvailability}"></td>
+                        <td th:text="${book.tag}"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-        </li>
-        <div sytle="clear:both"></div>
-        <li class="result-item">
-            <div class="thumbnail" isbn="9788960881570">
-                <div class="image">
-                    <img src="http://placehold.it/150X150" alt="표지" style="vertical-align:middle">
-                </div>
-                <dl class="book-data">
-                    <dd>마리아DB 따라잡기</dd>
-                    <dd>저자 | 장정우  발행년도 | 2022  태그 | 컴퓨터공학</dd>
-                    <dd class="book-status">
-                        <div class="left">
-                            자료상태 | <span class="status available">대출 가능</span>
-                            신규 도서 여부 | <span class="new_book">신규 도서</span>
-                        </div>
-                    </dd>
-                </dl>
-            </div>
-        </li>
-    </ul>
-</div>
+        </form>
+    </div>
 </body>
 </html>

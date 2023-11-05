@@ -3,20 +3,26 @@ package com.example.webproject.service.impl;
 import com.example.webproject.entity.Book;
 import com.example.webproject.entity.Tag;
 import com.example.webproject.repository.BookRepository;
-import com.example.webproject.service.bookService;
+import com.example.webproject.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BookServiceImpl implements bookService {
+public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
     @Autowired
     public BookServiceImpl(BookRepository bookrepository) {
         this.bookRepository = bookrepository;
+    }
+
+    @Override
+    public List<Book> getBookList() {
+        return bookRepository.findAll();
     }
 
     @Override
@@ -30,7 +36,7 @@ public class BookServiceImpl implements bookService {
     }
 
     @Override
-    public Book getBookList(String bookName) {
+    public Book getBookName(String bookName) {
         Optional<Book> book = bookRepository.findByBookName(bookName);
         if(book.isPresent()) {
             return book.get();
@@ -86,4 +92,10 @@ public class BookServiceImpl implements bookService {
             throw new EntityNotFoundException();
         }
     }
+
+    @Override
+    public Long getCountBook() {
+        return bookRepository.count();
+    }
+
 }

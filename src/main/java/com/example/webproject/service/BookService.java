@@ -5,10 +5,13 @@ import com.example.webproject.entity.Tag;
 
 import java.util.List;
 
-public interface bookService {
-    public Book getBook(Long isbn); // 책 가져오기
+public interface BookService {
 
-    public Book getBookList(String bookName); // 이름으로 책 가져오기
+    public List<Book> getBookList();  // 모든 책 리스트 가져오기
+
+    public Book getBook(Long isbn); // isbn으로 책 가져오기
+
+    public Book getBookName(String bookName); // 이름으로 책 가져오기
 
     public Book saveBook(Book book);    // 책 저장하기
     
@@ -17,4 +20,6 @@ public interface bookService {
     public Book changBook(Long isbn, Book newbook); // 책 이름, 저자, 출시년도, 대출 가능 여부, 신규도서 여부 수정
 
     public void deleteBook(Long isbn);  // 책 지우기
+
+    public Long getCountBook(); // 총 권수 가져오기
 }
