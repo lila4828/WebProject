@@ -7,7 +7,7 @@ public interface MemberService {
 
     public Member saveMember(Member member);    // 회원가입
 
-    public Member changMember(String id, Member newmember); // 회원 주소, 폰, Email 수정
+    public Member changeMember(String id, Member newmember); // 회원 주소, 폰, Email 수정
 
     public Member changePassword(String id, String newpassword); // 회원 패스워드 변경
 
