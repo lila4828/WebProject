@@ -1,5 +1,6 @@
 package com.example.webproject.service.impl;
 
+import com.example.webproject.dto.MemberDto;
 import com.example.webproject.entity.Member;
 import com.example.webproject.repository.MemberRepository;
 import com.example.webproject.service.MemberService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,6 +18,11 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
+    }
+
+    @Override
+    public List<Member> getMemberList() {
+        return memberRepository.findAll();
     }
 
     @Override
@@ -29,37 +36,43 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member saveMember(Member member) {
-        Member saveMember = memberRepository.save(member);
-        System.out.println(saveMember);
+    public Member saveMember(MemberDto memberDto) {
+        Member saveMember = new Member();
+        saveMember.setMemberId(memberDto.getMemberId());
+        saveMember.setMemberPassword(memberDto.getMemberPassword());
+        saveMember.setAddress(memberDto.getAddress());
+        saveMember.setPhone(memberDto.getPhone());
+        saveMember.setEmail(memberDto.getEmail());
+
+        memberRepository.save(saveMember);
         return saveMember;
     }
 
     @Override
-    public Member changeMember(String id, Member newmember) {
+    public void changeMember(String id, MemberDto memberDto) {
         Optional<Member> oldMember = memberRepository.findById(id);
-        Member newMember;
         if(oldMember.isPresent()) {
-            newMember = oldMember.get();
-            newMember.setAddress(newmember.getAddress());
-            newMember.setPhone(newmember.getPhone());
-            newMember.setEmail(newmember.getEmail());
+            Member newMember = oldMember.get();
+            newMember.setAddress(memberDto.getAddress());
+            newMember.setPhone(memberDto.getPhone());
+            newMember.setEmail(memberDto.getEmail());
+
+            memberRepository.save(newMember);
         } else {
             throw new EntityNotFoundException();
         }
-        return newMember;
     }
     @Override
-    public Member changePassword(String id, String password) {
+    public void changePassword(String id, String newPassword) {
         Optional<Member> oldMember = memberRepository.findById(id);
-        Member newMember;
         if(oldMember.isPresent()) {
-            newMember = oldMember.get();
-            newMember.setMemberPassword(password);
+            Member newMember = oldMember.get();
+            newMember.setMemberPassword(newPassword);
+
+            memberRepository.save(newMember);
         } else {
             throw new EntityNotFoundException();
         }
-        return newMember;
     }
 
     @Override

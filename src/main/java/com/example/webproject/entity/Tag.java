@@ -18,6 +18,10 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long TagId;
 
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name="isbn", referencedColumnName = "isbn")
+    private Book isbn;
+
     @Column
     private String tag;
 }

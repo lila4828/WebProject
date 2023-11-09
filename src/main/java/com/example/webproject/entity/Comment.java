@@ -20,7 +20,7 @@ public class Comment {
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="memberId", referencedColumnName = "memberId", nullable = false)
-    Member memberId;
+    private Member memberId;
 
     @Column
     private String comment;

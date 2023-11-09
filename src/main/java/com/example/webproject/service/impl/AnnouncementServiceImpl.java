@@ -1,5 +1,6 @@
 package com.example.webproject.service.impl;
 
+import com.example.webproject.dto.AnnouncementDto;
 import com.example.webproject.entity.Announcement;
 import com.example.webproject.repository.AnnouncementRepository;
 import com.example.webproject.service.AnnouncementService;
@@ -24,14 +25,15 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
-    public Announcement saveAnnouncement(Announcement announcement) {
-        Announcement saveAnnouncement = announcementRepository.save(announcement);
-        System.out.println(saveAnnouncement);
-        return saveAnnouncement;
+    public void saveAnnouncement(AnnouncementDto announcementDto) {
+        Announcement saveAnnouncement = new Announcement();
+        saveAnnouncement.setNoticeTitle(announcementDto.getNoticeTitle());
+        saveAnnouncement.setNoticeContent(announcementDto.getNoticeContent());
+        announcementRepository.save(saveAnnouncement);
     }
 
     @Override
-    public Announcement changeNoticeContent(Long id, String newNoticeContent) {
+    public void changeNoticeContent(Long id, String newNoticeContent) {
         Optional<Announcement> oldAnnouncement = announcementRepository.findById(id);
         Announcement newAnnouncement;
         if(oldAnnouncement.isPresent()) {
@@ -40,7 +42,6 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         } else {
             throw new EntityNotFoundException();
         }
-        return newAnnouncement;
     }
 
     @Override

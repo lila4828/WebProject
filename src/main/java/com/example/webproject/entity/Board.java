@@ -26,10 +26,9 @@ public class Board {
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="memberId", referencedColumnName = "memberId", nullable = false)
-    Member memberId;
+    private Member memberId;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="CommentId", referencedColumnName = "CommentId")
-    Comment commentId;
-
+    private Comment commentId;
 }

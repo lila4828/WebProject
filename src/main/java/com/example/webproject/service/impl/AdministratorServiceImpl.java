@@ -20,20 +20,24 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     @Override
     public boolean checkAdmin(String adminId, String adminPassword) {
-        // 작성 중
-        return false;
+        Optional<Administrator> admin = administratorRepository.findByAdminIdAndMemberPwd(adminId, adminPassword);
+        if (admin.isPresent()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public Administrator changePassword(String adminId, String newAdminPassword) {
+    public void changePassword(String adminId, String newAdminPassword) {
         Optional<Administrator> oldAdmin = administratorRepository.findById(adminId);
         Administrator newAdmin;
         if(oldAdmin.isPresent()) {
             newAdmin = oldAdmin.get();
             newAdmin.setAdminPassword(newAdminPassword);
+            administratorRepository.save(newAdmin);
         } else {
             throw new EntityNotFoundException();
         }
-        return newAdmin;
     }
 }

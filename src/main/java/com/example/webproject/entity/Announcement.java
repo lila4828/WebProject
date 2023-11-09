@@ -1,5 +1,6 @@
 package com.example.webproject.entity;
 
+import com.example.webproject.dto.AnnouncementDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,5 +24,4 @@ public class Announcement {
 
     @Column(nullable = false)
     private String noticeContent;
-
 }

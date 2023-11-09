@@ -3,6 +3,8 @@ package com.example.webproject.repository;
 import com.example.webproject.entity.Administrator;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AdministratorRepository extends JpaRepository<Administrator, String> {
+import java.util.Optional;
 
+public interface AdministratorRepository extends JpaRepository<Administrator, String> {
+    Optional<Administrator> findByAdminIdAndMemberPwd(String memberId, String memberPwd);
 }

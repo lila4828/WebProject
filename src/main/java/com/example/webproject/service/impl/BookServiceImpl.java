@@ -1,8 +1,10 @@
 package com.example.webproject.service.impl;
 
+import com.example.webproject.dto.BookDto;
 import com.example.webproject.entity.Book;
 import com.example.webproject.entity.Tag;
 import com.example.webproject.repository.BookRepository;
+import com.example.webproject.repository.TagRepository;
 import com.example.webproject.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,14 +17,21 @@ import java.util.Optional;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+    private final TagRepository tagRepository;
     @Autowired
-    public BookServiceImpl(BookRepository bookrepository) {
+    public BookServiceImpl(BookRepository bookrepository, TagRepository tagRepository) {
         this.bookRepository = bookrepository;
+        this.tagRepository = tagRepository;
     }
 
     @Override
     public List<Book> getBookList() {
-        return bookRepository.findAll();
+        return bookRepository.findAllAddTag();
+    }
+
+    @Override
+    public Long getCountBook() {
+        return bookRepository.count();
     }
 
     @Override
@@ -46,40 +55,51 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book saveBook(Book book) {
-        Book saveBook = bookRepository.save(book);
-        System.out.println(saveBook);
-        return saveBook;
+    public void saveBook(BookDto bookDto) {
+        Book saveBook = new Book();
+        saveBook.setIsbn(bookDto.getIsbn());
+        saveBook.setBookName(bookDto.getBookName());
+        saveBook.setAuthor(bookDto.getAuthor());
+        saveBook.setYear(bookDto.getYear());
+        saveBook.setLoanAvailability(bookDto.getLoanAvailability());
+        saveBook.setNewBookAvailability(bookDto.getNewBookAvailability());
+
+        bookRepository.save(saveBook);
     }
 
     @Override
-    public Book addTag(Long isbn, Tag tagId) {
+    public void addTag(Long isbn, BookDto bookDto) {
         Optional<Book> oldBook = bookRepository.findById(isbn);
-        Book newBook;
         if(oldBook.isPresent()) {
-            newBook = oldBook.get();
-            newBook.setTag(tagId);
+            Book newBook = oldBook.get();
+
+            Tag jointag = new Tag();
+            jointag.setTag(bookDto.getTag());
+            tagRepository.save(jointag);
+
+            newBook.setTag(jointag);
+            bookRepository.save(newBook);
         } else {
             throw new EntityNotFoundException();
         }
-        return newBook;
     }
 
     @Override
-    public Book changeBook(Long isbn, Book newbook) {
+    public void changeBook(Long isbn, BookDto bookDto) {
         Optional<Book> oldBook = bookRepository.findById(isbn);
-        Book newBook;
         if(oldBook.isPresent()) {
-            newBook = oldBook.get();
-            newBook.setBookName(newbook.getBookName());
-            newBook.setAuthor(newbook.getAuthor());
-            newBook.setYear(newbook.getYear());
-            newBook.setLoanAvailability(newbook.getLoanAvailability());
-            newBook.setNewBookAvailability(newbook.getNewBookAvailability());
+            Book newBook = oldBook.get();
+
+            newBook.setBookName(bookDto.getBookName());
+            newBook.setAuthor(bookDto.getAuthor());
+            newBook.setYear(bookDto.getYear());
+            newBook.setLoanAvailability(bookDto.getLoanAvailability());
+            newBook.setNewBookAvailability(bookDto.getNewBookAvailability());
+
+            bookRepository.save(newBook);
         } else {
             throw new EntityNotFoundException();
         }
-        return newBook;
     }
 
     @Override
@@ -94,8 +114,26 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Long getCountBook() {
-        return bookRepository.count();
+    public void changeLoanAvailability(Long isbn) {
+        Optional<Book> oldBook = bookRepository.findById(isbn);
+        if(oldBook.isPresent()) {
+            Book newBook = oldBook.get();
+            if(newBook.getLoanAvailability()) {
+                newBook.setLoanAvailability(false);
+            }
+            else {
+                newBook.setLoanAvailability(true);
+            }
+            bookRepository.save(newBook);
+        } else {
+            throw new EntityNotFoundException();
+        }
     }
-
+    
+    // 구현중
+    /*@Override
+    public List<Book> getBookList(String tag) {
+        List<Book> bookList = bookRepository.findAll();
+        return bookList;
+    }*/
 }
