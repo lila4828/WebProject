@@ -6,9 +6,6 @@ import com.example.webproject.service.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
-
 @Service
 public class AdministratorServiceImpl implements AdministratorService {
 
@@ -20,8 +17,9 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     @Override
     public boolean checkAdmin(String adminId, String adminPassword) {
-        Optional<Administrator> admin = administratorRepository.findByAdminIdAndMemberPwd(adminId, adminPassword);
-        if (admin.isPresent()) {
+        Administrator selectAdmin = administratorRepository.findById(adminId).orElse(null);
+
+        if (selectAdmin.getAdminPassword().equals(adminPassword)) {
             return true;
         } else {
             return false;
@@ -30,14 +28,9 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     @Override
     public void changePassword(String adminId, String newAdminPassword) {
-        Optional<Administrator> oldAdmin = administratorRepository.findById(adminId);
-        Administrator newAdmin;
-        if(oldAdmin.isPresent()) {
-            newAdmin = oldAdmin.get();
-            newAdmin.setAdminPassword(newAdminPassword);
-            administratorRepository.save(newAdmin);
-        } else {
-            throw new EntityNotFoundException();
-        }
+        Administrator selectAdmin = administratorRepository.findById(adminId).orElse(null);
+
+        selectAdmin.setAdminPassword(newAdminPassword);
+        administratorRepository.save(selectAdmin);
     }
 }

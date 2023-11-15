@@ -26,8 +26,7 @@ public class BookSearchController {
     @PostMapping("/search/{bookname}")
     public String Search(@PathVariable("bookname") String bookname, Model model) {
         List<Book> bookList = null;
-        
-        bookList.add(bookService.getBookName(bookname));
+
         Long bookCount = bookService.getCountBook();
         model.addAttribute("bookList", bookList);
         model.addAttribute("bookCount", bookCount);

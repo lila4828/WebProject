@@ -7,9 +7,7 @@ import com.example.webproject.service.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AnnouncementServiceImpl implements AnnouncementService {
@@ -25,33 +23,21 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
-    public void saveAnnouncement(AnnouncementDto announcementDto) {
-        Announcement saveAnnouncement = new Announcement();
-        saveAnnouncement.setNoticeTitle(announcementDto.getNoticeTitle());
-        saveAnnouncement.setNoticeContent(announcementDto.getNoticeContent());
-        announcementRepository.save(saveAnnouncement);
+    public void saveAnnouncement(Announcement announcement) {
+        announcementRepository.save(announcement);
     }
 
     @Override
-    public void changeNoticeContent(Long id, String newNoticeContent) {
-        Optional<Announcement> oldAnnouncement = announcementRepository.findById(id);
-        Announcement newAnnouncement;
-        if(oldAnnouncement.isPresent()) {
-            newAnnouncement = oldAnnouncement.get();
-            newAnnouncement.setNoticeTitle(newNoticeContent);
-        } else {
-            throw new EntityNotFoundException();
-        }
+    public void changeNoticeContent(Long id, AnnouncementDto announcementDto) {
+        Announcement selectAnnouncement = announcementRepository.findById(id).orElse(null);
+        selectAnnouncement.setNoticeTitle(announcementDto.getNoticeTitle());
+        selectAnnouncement.setNoticeContent(announcementDto.getNoticeContent());
+
+        announcementRepository.save(selectAnnouncement);
     }
 
     @Override
     public void deleteAnnouncement(Long id) {
-        Optional<Announcement> selectAnnouncement = announcementRepository.findById(id);
-        if(selectAnnouncement.isPresent()) {
-            Announcement announcement = selectAnnouncement.get();
-            announcementRepository.delete(announcement);
-        } else {
-            throw new EntityNotFoundException();
-        }
+        announcementRepository.deleteById(id);
     }
 }

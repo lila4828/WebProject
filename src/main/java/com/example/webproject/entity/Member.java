@@ -16,6 +16,7 @@ import javax.persistence.Table;
 @ToString()
 @Table(name = "Member")
 public class Member {
+
     @Id
     private String memberId;
 
@@ -30,4 +31,5 @@ public class Member {
 
     @Column()
     private String email;
+
 }

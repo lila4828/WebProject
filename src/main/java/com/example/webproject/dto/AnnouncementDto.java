@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AnnouncementDto {
-    private Long noticeNumber;
-    private String noticeTitle;
-    private String noticeContent;
+    private String noticeTitle;         // 공지사항 제목
+    private String noticeContent;       // 공지사항 내용
 }

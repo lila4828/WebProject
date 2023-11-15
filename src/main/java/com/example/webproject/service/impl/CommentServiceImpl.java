@@ -4,29 +4,27 @@ import com.example.webproject.dto.CommentDto;
 import com.example.webproject.entity.Board;
 import com.example.webproject.entity.Comment;
 import com.example.webproject.entity.Member;
-import com.example.webproject.repository.BoardRepository;
 import com.example.webproject.repository.CommentRepository;
-import com.example.webproject.repository.MemberRepository;
+import com.example.webproject.service.BoardService;
 import com.example.webproject.service.CommentService;
+import com.example.webproject.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
-    private final BoardRepository boardRepository;
-    private final MemberRepository memberRepository;
+    private final BoardService boardService;
+    private final MemberService memberService;
 
     @Autowired
-    public CommentServiceImpl(CommentRepository commentRepository, BoardRepository boardRepository, MemberRepository memberRepository) {
+    public CommentServiceImpl(CommentRepository commentRepository, BoardService boardService, MemberService memberService) {
         this.commentRepository = commentRepository;
-        this.boardRepository = boardRepository;
-        this.memberRepository = memberRepository;
+        this.boardService = boardService;
+        this.memberService = memberService;
     }
 
     @Override
@@ -35,31 +33,26 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void addComment(Long boardId, CommentDto commentDto) {
-        Optional<Board> board = boardRepository.findById(boardId);
-        if(board.isPresent()) {
-            Board newBoard = board.get();
+    public List<Comment> getCommentListByMemberId(String memberId) {
+        return commentRepository.findAllByMemberId(memberId);
+    }
 
-            Comment comment = new Comment();
-            Optional<Member> joinMember = memberRepository.findById(commentDto.getMemberId());
-            comment.setMemberId(joinMember.get());
-            comment.setComment(comment.getComment());
+    @Override
+    public void addComment(CommentDto commentDto) {
+        Board board = boardService.getBoard(commentDto.getBoardId());
 
-            newBoard.setCommentId(comment);
-            boardRepository.save(newBoard);
-        } else {
-            throw new EntityNotFoundException();
-        }
+        Comment comment = new Comment();
+        Member joinMember = memberService.getMember(commentDto.getMemberId());
+        comment.setMemberId(joinMember);
+        comment.setComment(comment.getComment());
+        commentRepository.save(comment);
+
+        board.setCommentId(comment);
+        boardService.saveBoard(board);
     }
 
     @Override
     public void deleteComment(Long id) {
-        Optional<Comment> selectComment = commentRepository.findById(id);
-        if(selectComment.isPresent()) {
-            Comment comment = selectComment.get();
-            commentRepository.delete(comment);
-        } else {
-            throw new EntityNotFoundException();
-        }
+        commentRepository.deleteById(id);
     }
 }

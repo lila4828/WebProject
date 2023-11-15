@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CommentDto {
-    private Long boardId;
-    private String memberId;
-    private String comment;
+    private Long boardId;       // 게시판 번호
+    private String memberId;    // 작성한 멤버 아이디
+    private String comment;     // 내용
 }

@@ -31,4 +31,5 @@ public class Board {
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="CommentId", referencedColumnName = "CommentId")
     private Comment commentId;
+
 }

@@ -12,9 +12,7 @@ import com.example.webproject.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LoanServiceImpl implements LoanService {
@@ -42,49 +40,40 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public Loan bookLoan(LoanDto loanDto) {
+    public void bookLoan(LoanDto loanDto) {
         Loan saveLoan = new Loan();
         saveLoan.setDateLoan(loanDto.getDateLoan());
 
-        Optional<Member> joinMember = memberRepository.findById(loanDto.getMemberId());
-        saveLoan.setMemberID(joinMember.get());
-        Optional<Book> joinBook = bookRepository.findById(loanDto.getIsbn());
-        saveLoan.setIsbn(joinBook.get());
+        Member joinMember = memberRepository.findById(loanDto.getMemberId()).orElse(null);
+        saveLoan.setMemberID(joinMember);
 
-        saveLoan.setNumberExtensions(0L);
+        Book joinBook = bookRepository.findById(loanDto.getIsbn()).orElse(null);
+        saveLoan.setIsbn(joinBook);
 
         loanRepository.save(saveLoan);
-        bookService.changeLoanAvailability(loanDto.getIsbn());
-        return saveLoan;
+        bookService.changeLoanAvailability(joinBook.getIsbn());
     }
 
     @Override
     public void extendLoan(Long id) {
-        Optional<Loan> oldLoan = loanRepository.findById(id);
-        if(oldLoan.isPresent()) {
-            Loan newLoan = oldLoan.get();
-            Long numberExtensions = oldLoan.get().getNumberExtensions();
+        Loan selectLoan = loanRepository.findById(id).orElse(null);
 
-            newLoan.setNumberExtensions(numberExtensions+1);
+        Long loanNumberExtensions = selectLoan.getNumberExtensions();
 
-            loanRepository.save(newLoan);
-        } else {
-            throw new EntityNotFoundException();
-        }
+        selectLoan.setNumberExtensions(loanNumberExtensions+1);
+
+        loanRepository.save(selectLoan);
     }
 
     @Override
     public void returnLoan(Long id, LoanDto loanDto) {
-        Optional<Loan> oldLoan = loanRepository.findById(id);
-        if(oldLoan.isPresent()) {
-            Loan newLoan = oldLoan.get();
+        Loan selectLoan = loanRepository.findById(id).orElse(null);
 
-            newLoan.setReturnDate(loanDto.getReturnDate());
+        selectLoan.setReturnDate(loanDto.getReturnDate());
 
-            loanRepository.save(newLoan);
-            bookService.changeLoanAvailability(loanDto.getIsbn());
-        } else {
-            throw new EntityNotFoundException();
-        }
+        loanRepository.save(selectLoan);
+
+        Book joinBook = bookRepository.findById(loanDto.getIsbn()).orElse(null);
+        bookService.changeLoanAvailability(joinBook.getIsbn());
     }
 }

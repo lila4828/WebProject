@@ -10,9 +10,9 @@ public interface LoanService {
 
     public List<Loan> getLoanList();                       // 대출 현황 불러오기
     
-    public List<Loan> getLoanList(String memberId);        // 자기의 아이디만 불러온다.
+    public List<Loan> getLoanList(String memberId);        // 멤버 아이디로만 대출 현황 불러온다.
 
-    public Loan bookLoan(LoanDto loanDto);                 // 대출 하기
+    public void bookLoan(LoanDto loanDto);                 // 대출 하기
 
     public void extendLoan(Long id);                       // 대출 횟수 늘리기
 

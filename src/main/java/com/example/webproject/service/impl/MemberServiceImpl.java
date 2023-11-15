@@ -7,9 +7,7 @@ import com.example.webproject.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -27,62 +25,35 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member getMember(String id) {
-        Optional<Member> member = memberRepository.findById(id);
-        if(member.isPresent()) {
-            return member.get();
-        } else {
-            throw new EntityNotFoundException();
-        }
+        return memberRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Member saveMember(MemberDto memberDto) {
-        Member saveMember = new Member();
-        saveMember.setMemberId(memberDto.getMemberId());
-        saveMember.setMemberPassword(memberDto.getMemberPassword());
-        saveMember.setAddress(memberDto.getAddress());
-        saveMember.setPhone(memberDto.getPhone());
-        saveMember.setEmail(memberDto.getEmail());
-
-        memberRepository.save(saveMember);
-        return saveMember;
+    public void saveMember(Member member) {
+        memberRepository.save(member);
     }
 
     @Override
     public void changeMember(String id, MemberDto memberDto) {
-        Optional<Member> oldMember = memberRepository.findById(id);
-        if(oldMember.isPresent()) {
-            Member newMember = oldMember.get();
-            newMember.setAddress(memberDto.getAddress());
-            newMember.setPhone(memberDto.getPhone());
-            newMember.setEmail(memberDto.getEmail());
+        Member selectMember = memberRepository.findById(id).orElse(null);
 
-            memberRepository.save(newMember);
-        } else {
-            throw new EntityNotFoundException();
-        }
+        selectMember.setAddress(memberDto.getAddress());
+        selectMember.setPhone(memberDto.getPhone());
+        selectMember.setEmail(memberDto.getEmail());
+
+        memberRepository.save(selectMember);
     }
     @Override
     public void changePassword(String id, String newPassword) {
-        Optional<Member> oldMember = memberRepository.findById(id);
-        if(oldMember.isPresent()) {
-            Member newMember = oldMember.get();
-            newMember.setMemberPassword(newPassword);
+        Member selectMember = memberRepository.findById(id).orElse(null);
 
-            memberRepository.save(newMember);
-        } else {
-            throw new EntityNotFoundException();
-        }
+        selectMember.setMemberPassword(newPassword);
+
+        memberRepository.save(selectMember);
     }
 
     @Override
     public void deleteMember(String id) {
-        Optional<Member> selectMember = memberRepository.findById(id);
-        if(selectMember.isPresent()) {
-            Member member = selectMember.get();
-            memberRepository.delete(member);
-        } else {
-            throw new EntityNotFoundException();
-        }
+        memberRepository.deleteById(id);
     }
 }

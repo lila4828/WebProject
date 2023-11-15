@@ -41,4 +41,5 @@ public class Book {
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="TagId", referencedColumnName = "TagId")
     private Tag tag;
+
 }
