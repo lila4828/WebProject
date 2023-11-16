@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Board System</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <p></p>
+  <h1 style="text-align: center" >도서 게시판</h1>
+  <p></p>
+  <table class="table">
+    <thead>
+    <tr>
+      <th style="text-align: center">게시판 번호</th>
+      <th style="text-align: center">작성자</th>
+      <th style="text-align: center">제목</th>
+      <th style="text-align: center">댓글 수</th>
+      <th style="text-align: center">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="board, i : ${boardList}">
+      <td style="text-align: center; width: 109px;" th:text="${i.count}"></td>
+      <th><p style="text-align: center" th:text="*{board.getMemberId()}"></p></th>
+      <th><p style="text-align: center;height: 51px;width: 450px;" th:text="*{board.title}"></p></th>
+      <th><p style="text-align: center;width: 84px;" th:text="${commentCount}"></p></th>
+      <th>
+        <div style="text-align: center">
+          <a class="btn btn-secondary mt-3" th:href="@{'/BoardList/viewBoard/' + ${board.getBoardNumber()}}">View</a>
+          <a class="btn btn-secondary mt-3" th:href="@{'/BoardList/editBoard/' + ${board.getBoardNumber()}}">Edit</a>
+        </div>
+      </th>
+    </tr>
+    </tbody>
+  </table>
+  <table style="float:right">
+    <tr>
+      <th>
+        <a class="btn btn-success" th:href="@{/BoardList/addBoard}">게시판 작성</a>
+      </th>
+      <th style="width: 20px"></th>
+      <th>
+        <a class="btn btn-success" th:href="@{/}">되돌아가기</a>
+      </th>
+      <th style="width: 10px"></th>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

@@ -11,6 +11,6 @@ public class LoginController {
     @Autowired
     MemberService memberService;
 
-    @GetMapping("/login")
-    public String loginView() { return "view/loginpage"; }
+    @GetMapping("/Login")
+    public String loginView() { return "view/loginPage"; }
 }

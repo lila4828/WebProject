@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Board System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4" style="text-align: center">게시판 작성</h1>
+    <form th:action="@{/BoardList/addBoard}" method="post">
+        <div class="form-group"  th:object="${board}">
+            <label for="boardCreate">작성자</label>
+            <input type="text" class="form-control" id="boardCreate" th:field="*{title}" required>
+            <p></p>
+            <label for="boardTitle">제목</label>
+            <input type="text" class="form-control" id="boardTitle" th:field="*{content}" required>
+            <p></p>
+            <label for="boardContent">내용</label>
+            <textarea class="form-control" id="boardContent" th:field="*{content}" required
+                      placeholder="내용을 작성해 주세요" style="resize: none;height: 9em;"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">글 작성 완료</button>
+    </form>
+    <a class="btn btn-secondary mt-3" th:href="@{/BoardList}">취소</a>
+</div>
+</body>
+</html>

@@ -25,11 +25,10 @@ public class Board {
     private String content;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name="memberId", referencedColumnName = "memberId", nullable = false)
+    @JoinColumn(name="memberId", referencedColumnName = "memberId")
     private Member memberId;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="CommentId", referencedColumnName = "CommentId")
     private Comment commentId;
-
 }

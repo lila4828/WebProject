@@ -11,25 +11,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-import static java.awt.AWTEventMulticaster.add;
 
 @Controller
 public class BookSearchController {
 
     @Autowired
     BookService bookService;
-    @GetMapping("/search")
+    @GetMapping("/Search")
     public String GoSearch(Model model) {
 
-        return "view/searchpage";
+        return "view/searchPage";
     }
-    @PostMapping("/search/{bookname}")
+    /*@PostMapping("/search/{bookname}")
     public String Search(@PathVariable("bookname") String bookname, Model model) {
         List<Book> bookList = null;
 
         Long bookCount = bookService.getCountBook();
         model.addAttribute("bookList", bookList);
         model.addAttribute("bookCount", bookCount);
-        return "/view/searchpage";
-    }
+        return "searchPage";
+    }*/
 }
