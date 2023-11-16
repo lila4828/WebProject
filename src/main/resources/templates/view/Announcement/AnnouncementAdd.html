@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항 추가</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4" style="text-align: center">공지사항 작성</h1>
+    <form th:action="@{/AnnouncementList/addAnnouncement}" method="post">
+        <div class="form-group"  th:object="${announcement}">
+            <label for="announcementCreate">작성자</label>
+            <input type="text" class="form-control" id="announcementCreate" th:field="*{noticeTitle}"  required
+                   placeholder="작성자를 작성해 주세요">
+            <p></p>
+            <label for="announcementTitle">제목</label>
+            <input type="text" class="form-control" id="announcementTitle" th:field="*{noticeTitle}"  required
+                   placeholder="제목을 작성해 주세요">
+            <p></p>
+            <label for="announcementContent">내용</label>
+            <textarea class="form-control" id="announcementContent" th:field="*{noticeContent}" required
+                      placeholder="내용을 작성해 주세요" style="resize: none;height: 9em;"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">공지사항 작성 완료</button>
+    </form>
+    <a class="btn btn-secondary mt-3" th:href="@{/AnnouncementList}">취소</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <p></p>
+    <h1 style="text-align: center">공지사항 목록</h1>
+    <p></p>
+    <table class="table">
+        <thead>
+        <tr style="text-align: center">
+            <th>공지사항 번호</th>
+            <th>공지사항 제목</th>
+            <th>내용</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="announcement, i : ${announcementList}">
+            <td style="text-align: center" th:text="${i.count}"></td>
+            <th><p th:text="*{announcement.noticeTitle}"></p></th>
+            <th><p th:text="*{announcement.noticeContent}"></p></th>
+            <th>
+                <div style="text-align: center">
+                    <a class="btn btn-secondary mt-3" th:href="@{'/AnnouncementList/viewAnnouncement/' + ${announcement.getNoticeNumber()}}">View</a>
+                    <a class="btn btn-secondary mt-3" th:href="@{'/AnnouncementList/editAnnouncement/' + ${announcement.getNoticeNumber()}}">Edit</a>
+                </div>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+    <table style="float:right">
+        <tr>
+            <th>
+                <a class="btn btn-success" th:href="@{/AnnouncementList/addAnnouncement}">공지사항 작성</a>
+            </th>
+            <th style="width: 20px"></th>
+            <th>
+                <a class="btn btn-success" th:href="@{/}">되돌아가기</a>
+            </th>
+            <th style="width: 10px"></th>
+        </tr>
+    </table>
+</div>
+</body>
+</body>
+</html>

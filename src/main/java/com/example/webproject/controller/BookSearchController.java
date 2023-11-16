@@ -5,30 +5,33 @@ import com.example.webproject.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @Controller
+@RequestMapping("/SearchList")
 public class BookSearchController {
+    private final BookService bookService;
 
     @Autowired
-    BookService bookService;
-    @GetMapping("/Search")
-    public String GoSearch(Model model) {
-
-        return "view/searchPage";
+    public BookSearchController(BookService bookService) {
+        this.bookService = bookService;
     }
-    /*@PostMapping("/search/{bookname}")
-    public String Search(@PathVariable("bookname") String bookname, Model model) {
-        List<Book> bookList = null;
+    @GetMapping()
+    public String GoSearch() {
 
-        Long bookCount = bookService.getCountBook();
-        model.addAttribute("bookList", bookList);
-        model.addAttribute("bookCount", bookCount);
-        return "searchPage";
-    }*/
+        return "view/SearchPage";
+    }
+    @PostMapping("/{bookname}")
+    public String Search(@RequestParam("bookName") Book book, Model model) {
+//        List<Book> bookList = bookService.getBookName(book.getBookName(book));
+//        int bookCount = 0;
+//        for(Book book : bookList) {
+//            bookCount++;
+//        }
+//        model.addAttribute("bookList", bookList);
+//        model.addAttribute("bookCount", bookCount);
+        return "redirect:SearchList";
+    }
 }

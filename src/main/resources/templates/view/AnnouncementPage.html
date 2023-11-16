@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+    <p></p>
+    <h2>공지사항 목록</h2>
+    <p></p>
+    <table class="table">
+        <thead>
+        <tr>
+            <style>Num</style>
+            <th>공지사항 제목</th>
+            <th>내용</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="Announcement, i : ${AnnouncementList}">
+            <td th:test="${i.count}"></td>
+            <th><p th:text="*{announcement.noticeNumber}"></p></th>
+            <th><p th:text="*{announcement.noticeTitle}"></p></th>
+            <th><p th:text="*{announcement.noticeContent}"></p></th>
+            <th><a class="btn btn-secondary mt-3" th:href="@{'/AnnouncementList/editAnniuncement' + ${announcement.getnoticeNumber()}}">Edit</a>
+        </tr>
+        </tbody>
+    </table>
+    <p></p>
+    <a class="btn btn-success" th:href="@{/templates/view/Announcement/addAnnouncement}">공지사항 추가</a>
+    </div>
+</body>
+</body>
+</html>

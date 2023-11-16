@@ -23,6 +23,9 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
+    public Announcement getAnnouncement(Long id) { return announcementRepository.findById(id).orElse(null); }
+
+    @Override
     public void saveAnnouncement(Announcement announcement) {
         announcementRepository.save(announcement);
     }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Board System</title>
+    <title>게시판 추가</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -11,10 +11,12 @@
     <form th:action="@{/BoardList/addBoard}" method="post">
         <div class="form-group"  th:object="${board}">
             <label for="boardCreate">작성자</label>
-            <input type="text" class="form-control" id="boardCreate" th:field="*{title}" required>
+            <input type="text" class="form-control" id="boardCreate" th:field="*{title}"  required
+                   placeholder="작성자를 작성해 주세요">
             <p></p>
             <label for="boardTitle">제목</label>
-            <input type="text" class="form-control" id="boardTitle" th:field="*{content}" required>
+            <input type="text" class="form-control" id="boardTitle" th:field="*{title}" required
+                   placeholder="제목을 작성해 주세요">
             <p></p>
             <label for="boardContent">내용</label>
             <textarea class="form-control" id="boardContent" th:field="*{content}" required

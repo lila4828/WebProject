@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항 세부내용</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4" style="text-align: center">공지사항</h1>
+    <form th:action="@{/AnnoncementList/editAnnoncement/{id}(id=${announcement.noticeNumber})}" method="post" th:object="${announcement}">
+        <div class="form-group">
+            <label for="title">제목</label>
+            <input type="text" class="form-control" id="title" th:field="*{noticeTitle}" required readonly>
+        </div>
+        <div class="form-group">
+            <label for="notice">내용</label>
+            <textarea class="form-control" id="notice" th:field="*{noticeContent}" required
+                      readonly style="resize: none;height: 10em;"></textarea>
+        </div>
+    </form>
+    <a class="btn btn-secondary mt-3" th:href="@{/AnnouncementList}">되돌아가기</a>
+</div>
+</body>
+</html>

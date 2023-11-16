@@ -35,13 +35,13 @@ public class BoardController {
     }
 
     @GetMapping("/addBoard")
-    public String showAddInstructor(Model model) {
+    public String showAddBoard(Model model) {
         model.addAttribute("board", new BoardDto());
         return "view/Board/BoardAdd";
     }
 
     @PostMapping("/addBoard")
-    public String addInstructor(@ModelAttribute BoardDto boardDto) {
+    public String addBoard(@ModelAttribute BoardDto boardDto) {
         Board board = new Board();
         board.setTitle(boardDto.getTitle());
         board.setContent(boardDto.getContent());
@@ -68,7 +68,7 @@ public class BoardController {
     }
 
     @GetMapping("/editBoard/{id}")
-    public String showEditInstructor(@PathVariable("id") Long BoardId, Model model) {
+    public String showEditBoard(@PathVariable("id") Long BoardId, Model model) {
         Board board = boardService.getBoard(BoardId);
 
         model.addAttribute("board", board);
@@ -77,7 +77,7 @@ public class BoardController {
     }
 
     @PostMapping("/editBoard/{id}")
-    public String editInstructor(@PathVariable("id") Long BoardId, @ModelAttribute BoardDto boardDto) {
+    public String editBoard(@PathVariable("id") Long BoardId, @ModelAttribute BoardDto boardDto) {
         boardService.changeBoard(BoardId, boardDto);
 
         return "redirect:/BoardList";
