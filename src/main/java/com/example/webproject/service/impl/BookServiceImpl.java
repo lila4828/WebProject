@@ -30,6 +30,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Long getCountBook() { return bookRepository.count(); }
+
+    @Override
     public Book getBook(Long isbn) {
         return bookRepository.findById(isbn).orElse(null);
     }

@@ -7,7 +7,9 @@ import com.example.webproject.entity.Book;
 import java.util.List;
 
 public interface BookService {
-    public List<Book> getBookList();            // 모든 책 리스트 가져오기
+    public List<Book> getBookList(); // 모든 책 리스트 가져오기
+    
+    public Long getCountBook(); // 총 권수 가져오기
 
     public Book getBook(Long isbn);             // isbn으로 책 가져오기
 

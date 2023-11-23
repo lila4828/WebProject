@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4" style="text-align: center">관리자</h1>
+    <p></p>
+    <div class="row">
+        <div class="col-lg-6 col-sm-12 text-lg-start text-center">
+            <th>
+                <a class="btn btn-success" th:href="@{/AnnouncementList}">공지사항</a>
+            </th>
+            <th style="width:10px"></th>
+            <th>
+                <a class="btn btn-success" th:href="@{/BoardList}">게시판</a>
+            </th>
+            <th style="width:10px"></th>
+            <th>
+                <a class="btn btn-success" th:href="@{/ManagerMember}">회원 계정 관리</a>
+            </th>
+            </div>
+        <div class="col-lg-6 col-sm-12 text-lg-end text-center">
+            <th>
+                <a class="btn btn-success" th:href="@{/ChangePassword}">비밀번호 변경</a>
+            </th>
+            <th style="width:10px"></th>
+            <th>
+                <a class="btn btn-success" th:href="@{/Logout}">로그아웃</a>
+            </th>
+        </div>
+    </div>
+    <style type="text/css">
+        .tg  {border-collapse:collapse;border-spacing:0;}
+        .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+            overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+            font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+        .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+    </style>
+    <form th:action="@{/Adminstrator}" method="post">
+        <table class="tg" style="undefined;table-layout: fixed; width: 357px">
+            <colgroup>
+                <col style="width: 100px">
+                <col style="width: 60px">
+                <col style="width: 100px">
+                <col style="width: 60px">
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="tg-c3ow">총 대출건수</th>
+                <th class="tg-0pky"><strong th:text="${loanCount}"></strong></th>
+                <th class="tg-c3ow">현재 대출 수</th>
+                <th class="tg-0pky"><strong th:text="${loanCount}"></strong></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tg-c3ow">총 회원 수</td>
+                <td class="tg-0pky"><strong th:text="${memberCount}"></strong></td>
+                <td class="tg-c3ow">보유 도서 수</td>
+                <td class="tg-0pky"><strong th:text="${bookCount}"></strong></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+</body>
+</html>

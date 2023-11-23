@@ -8,6 +8,8 @@ import java.util.List;
 public interface MemberService {
     
     public List<Member> getMemberList();                        // 회원 리스트 가져오기
+
+    public Long getMemberCount();                               // 총 회원 수 가져오기
     
     public Member getMember(String id);                         // 회원정보 가져오기
 
@@ -19,4 +21,5 @@ public interface MemberService {
 
     public void deleteMember(String id);                        // 회원 탈퇴
 
+    
 }

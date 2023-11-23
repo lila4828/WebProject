@@ -24,6 +24,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public Long getMemberCount() {
+        return memberRepository.count();
+    }
+
+    @Override
     public Member getMember(String id) {
         return memberRepository.findById(id).orElse(null);
     }
