@@ -42,4 +42,6 @@ public class Book {
     @JoinColumn(name="TagId", referencedColumnName = "TagId")
     private Tag tag;
 
+    @Column
+    private String imageUrl;
 }

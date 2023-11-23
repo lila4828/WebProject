@@ -12,11 +12,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/AnnouncementList")
-public class announcementController {
+public class AnnouncementController {
     private final AnnouncementService announcementService;
 
     @Autowired
-    public announcementController(AnnouncementService announcementService) {
+    public AnnouncementController(AnnouncementService announcementService) {
         this.announcementService = announcementService;
     }
     @GetMapping()
@@ -34,8 +34,10 @@ public class announcementController {
     }
 
     @PostMapping("/addAnnouncement")
-    public String addAnnouncement(@ModelAttribute AnnouncementDto announcementDto) {
+    public String addAnnouncement(@ModelAttribute AnnouncementDto announcementDto,
+                                  @RequestParam("selectNoticePriority") String NoticePriority ) {
         Announcement announcement = new Announcement();
+        announcement.setNoticePriority(NoticePriority);
         announcement.setNoticeTitle(announcementDto.getNoticeTitle());
         announcement.setNoticeContent(announcementDto.getNoticeContent());
 

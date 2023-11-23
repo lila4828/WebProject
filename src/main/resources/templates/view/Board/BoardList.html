@@ -22,10 +22,10 @@
     </thead>
     <tbody>
     <tr th:each="board, i : ${boardList}">
-      <td style="text-align: center; width: 109px;" th:text="${i.count}"></td>
+      <td style="text-align: center;" th:text="${i.count}"></td>
       <th><p style="text-align: center" th:text="*{board.getMemberId()}"></p></th>
-      <th><p style="text-align: center;height: 51px;width: 450px;" th:text="*{board.title}"></p></th>
-      <th><p style="text-align: center;width: 84px;" th:text="${commentCount}"></p></th>
+      <th><p style="text-align: center;height: 50px;width: 250px;" th:text="*{board.title}"></p></th>
+      <th><p style="text-align: center;width: 60px;" th:text="${commentCount}"></p></th>
       <th>
         <div style="text-align: center">
           <a class="btn btn-secondary mt-3" th:href="@{'/BoardList/viewBoard/' + ${board.getBoardNumber()}}">View</a>

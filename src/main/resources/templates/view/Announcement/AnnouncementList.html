@@ -14,6 +14,7 @@
         <thead>
         <tr style="text-align: center">
             <th>공지사항 번호</th>
+            <th>공지사항 종류</th>
             <th>공지사항 제목</th>
             <th>내용</th>
             <th>Actions</th>
@@ -22,6 +23,7 @@
         <tbody>
         <tr th:each="announcement, i : ${announcementList}">
             <td style="text-align: center" th:text="${i.count}"></td>
+            <th><p th:text="*{announcement.noticePriority}"></p></th>
             <th><p th:text="*{announcement.noticeTitle}"></p></th>
             <th><p th:text="*{announcement.noticeContent}"></p></th>
             <th>

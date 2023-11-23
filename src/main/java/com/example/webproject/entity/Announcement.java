@@ -18,6 +18,9 @@ public class Announcement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long noticeNumber;
 
+    @Column
+    private String noticePriority;
+
     @Column(nullable = false)
     private String noticeTitle;
 

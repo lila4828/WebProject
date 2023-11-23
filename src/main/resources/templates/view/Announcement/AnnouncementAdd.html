@@ -21,6 +21,11 @@
             <label for="announcementContent">내용</label>
             <textarea class="form-control" id="announcementContent" th:field="*{noticeContent}" required
                       placeholder="내용을 작성해 주세요" style="resize: none;height: 9em;"></textarea>
+            <select id="NoticePriority", th:name="selectNoticePriority">
+                <option value="선택"> 선택 </option>
+                <option value="일반 공지">일반 공지</option>
+                <option value="긴급 공지">긴급 공지</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-success">공지사항 작성 완료</button>
     </form>

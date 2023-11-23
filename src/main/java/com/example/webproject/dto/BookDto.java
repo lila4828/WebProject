@@ -15,4 +15,5 @@ public class BookDto {
     private Boolean loanAvailability;       // 대출가능여부
     private Boolean newBookAvailability;    // 새로운 책 여부
     private String tag;                     // 태그이름
+    private String imageUrl;                // 이미지
 }
