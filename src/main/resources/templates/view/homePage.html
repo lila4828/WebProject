@@ -9,7 +9,7 @@
         <h2><p style="text-align:center" th:href="@{/}">도서 관리 시스템</p></h2>
         <div style="text-align:right">
             <a th:href="@{/Login}"><button style="background: black;color: white;padding:5px 20px;">login</button></a>
-            <a th:href="@{/Logout}"><button style="background: black;color: white;padding:5px 20px;">login</button></a>
+            <a th:href="@{/Logout}"><button style="background: black;color: white;padding:5px 20px;">Logout</button></a>
         </div>
     </div>
     <p  style="padding:10px;" ></p>
@@ -48,10 +48,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="announcement : ${announcementList}">
+                <tr th:each="announcement, i : ${announcementList}">
                     <td></td>
                     <td><p style="text-align: right;height: 50px;width: 80px;" th:text="*{announcement.noticePriority + ' |'}"></p></td>
-                    <td><p style="text-align: left; height: 50px;width: 300px;" th:text="*{announcement.noticeTitle}"></p></td>
+                    <td><a th:href="@{/'/AnnouncementList/viewAnnouncement/' + ${announcement.getNoticeNumber()}}"><p style="text-align: left; height: 50px;width: 300px;" th:text="*{announcement.noticeTitle}"></p></a></td>
                     <td></td>
                 </tr>
             </tbody>

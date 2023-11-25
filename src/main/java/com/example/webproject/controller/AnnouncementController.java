@@ -34,8 +34,10 @@ public class AnnouncementController {
     }
 
     @PostMapping("/addAnnouncement")
-    public String addAnnouncement(@ModelAttribute AnnouncementDto announcementDto) {
+    public String addAnnouncement(@ModelAttribute AnnouncementDto announcementDto,
+                                  @RequestParam("selectNoticePriority") String NoticePriority ) {
         Announcement announcement = new Announcement();
+        announcement.setNoticePriority(NoticePriority);
         announcement.setNoticeTitle(announcementDto.getNoticeTitle());
         announcement.setNoticeContent(announcementDto.getNoticeContent());
 
@@ -64,6 +66,11 @@ public class AnnouncementController {
     public String editAnnouncement(@PathVariable("id") Long AnnouncementId, @ModelAttribute AnnouncementDto announcementDto)  {
         announcementService.changeNoticeContent(AnnouncementId, announcementDto);
 
+        return "redirect:/AnnouncementList";
+    }
+    @GetMapping("/deleteAnnouncement/{id}")
+    public String deleteAnnouncement(@PathVariable("id") Long AnnouncementId) {
+        announcementService.deleteAnnouncement(AnnouncementId);
         return "redirect:/AnnouncementList";
     }
 }

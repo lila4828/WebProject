@@ -30,6 +30,7 @@
                 <div style="text-align: center">
                     <a class="btn btn-secondary mt-3" th:href="@{'/AnnouncementList/viewAnnouncement/' + ${announcement.getNoticeNumber()}}">View</a>
                     <a class="btn btn-secondary mt-3" th:href="@{'/AnnouncementList/editAnnouncement/' + ${announcement.getNoticeNumber()}}">Edit</a>
+                    <a class="btn btn-secondary mt-3" th:href="@{'/AnnouncementList/deleteAnnouncement/' + ${announcement.getNoticeNumber()}}">delete</a>
                 </div>
             </th>
         </tr>
