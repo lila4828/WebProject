@@ -2,6 +2,7 @@ package com.example.webproject.controller;
 
 import com.example.webproject.entity.Announcement;
 import com.example.webproject.service.AnnouncementService;
+import com.example.webproject.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +13,12 @@ import java.util.List;
 @Controller
 public class MainController {
     private final AnnouncementService announcementService;
+    private final MemberService memberService;
 
     @Autowired
-    public MainController(AnnouncementService announcementService) {
+    public MainController(AnnouncementService announcementService, MemberService memberService) {
         this.announcementService = announcementService;
+        this.memberService = memberService;
     }
 
     @GetMapping("/")
@@ -27,6 +30,9 @@ public class MainController {
         return "view/HomePage";
     }
 
-    @GetMapping("/error")
-    public String errorView() { return "view/errorPage";}
+    @GetMapping("/Login")
+    public String loginView() { return "view/LoginPage"; }
+
+    @GetMapping("/Error")
+    public String errorView() { return "view/ErrorPage";}
 }

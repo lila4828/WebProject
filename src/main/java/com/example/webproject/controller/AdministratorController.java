@@ -24,7 +24,7 @@ public class AdministratorController {
     }
 
     @GetMapping()
-    public String administratorview(Model model) {
+    public String administratorView(Model model) {
         return "view/AdministratorPage";
     }
     @PostMapping()
