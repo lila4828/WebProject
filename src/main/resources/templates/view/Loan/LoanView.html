@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>대출 반납/연장</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <p></p>
+    <h1 style="text-align: center" >대출 현황</h1>
+    <p></p>
+    <table class="table">
+        <thead>
+        <tr style="text-align: center">
+            <th>대출 번호</th>
+            <th>책 이름</th>
+            <th>지은이</th>
+            <th>발행 년도</th>
+            <th>분류 번호</th>
+            <th>대출 일자</th>
+            <th>연장 횟수</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="loan, i : ${LoanList}">
+            <td style="text-align: center;" th:text="${i.count}"></td>
+            <th><p style="text-align: center" th:text="*{loan.getIsbn().bookName}"></p></th>
+            <th><p style="text-align: center" th:text="*{loan.getIsbn().author}"></p></th>
+            <th><p style="text-align: center" th:text="*{loan.getIsbn().year}"></p></th>
+            <th><p style="text-align: center" th:text="*{loan.getIsbn().isbn}"></p></th>
+            <th><p style="text-align: center" th:text="*{loan.dateLoan}"></p></th>
+            <th><p style="text-align: center" th:text="*{loan.numberExtensions}"></p></th>
+            <th>
+                <div style="text-align: center">
+                    <a class="btn btn-secondary mt-3" th:href="@{'/LoanList/LoanReturn/' + ${loan.loanId}}">반납</a>
+                    <a class="btn btn-secondary mt-3" th:href="@{'/LoanList/LoanReturn/Extensions/' + ${loan.loanId}}">연장</a>
+                </div>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

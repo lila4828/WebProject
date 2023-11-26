@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <p  style="padding:10px;" ></p>
+    <title>도서 대출</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <div>
+        <h2 style="text-align:center">도서 대출</h2>
+        <p style="text-align:right"><a th:href="@{/}"><button style="background: black;color: white;padding:5px 20px;">home</button></a></p>
+    </div>
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4" style="text-align: center">게시판 작성</h1>
+    <table style="table-layout: fixed; width: 421px">
+        <colgroup>
+            <col style="width: 105px">
+            <col style="width: 105px">
+            <col style="width: 106px">
+            <col style="width: 105px">
+        </colgroup>
+            <thead>
+            <tr>
+                <td rowspan="2">
+                    <img th:src="@{'/images/' + ${book.imageUrl}}" alt="Book Image" class="img-thumbnail">
+                </td>
+                <td>
+                    책 이름
+                    <p th:text="${book.bookName}"></p>
+                </td>
+                <td>
+                    지은이
+                    <p th:text="${book.author}"></p>
+                </td>
+                <td>
+                    발행년도
+                    <p th:text="${book.year}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    ISBN
+                    <p th:text="${book.isbn}"></p>
+                </td>
+                <td>
+                    대출 가능 여부
+                    <p th:text="${book.loanAvailability}"></p>
+                </td>
+                <td>
+                    태그
+                    <p th:text="${book.tag}"></p>
+                </td>
+            </tr>
+            </thead>
+    </table>
+    </div>
+    <div>
+        <form th:action="@{/LoanList/LoanAdd/{bookIsbn}(bookIsbn=${book.isbn})}" method="post">
+            <div class="form-group">
+                <label for="start">대출일자</label>
+                <input type="date" id="start" name="loanStart" th:value="${date}" min="2023-01-01" max="2025-12-31" />
+                <p></p>
+            </div>
+            <button type="submit" class="btn btn-success">대출 완료</button>
+        </form>
+        <a class="btn btn-secondary mt-3" th:href="@{/BoardList}">취소</a>
+    </div>
+</body>
+</html>

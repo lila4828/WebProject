@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>대출 연장</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+  <h1 class="mb-4" style="text-align: center">대출 연장</h1>
+  <form th:action="@{/LoanList/ExtensionsView/{id}(id=${Loan.loanId})}" method="post" th:object="${Loan}">
+    <div class="form-group">
+      <label for="title">책</label>
+      <input type="text" class="form-control" id="title" th:field="*{isbn}" required readonly>
+    </div>
+    <div class="form-group">
+      <label for="loanDate">대여 일자</label>
+      <input class="form-control" id="loanDate" th:field="*{dateLoan}" required readonly>
+    </div>
+    <div class="form-group">
+      <label for="loanCount">연장 횟수</label>
+      <input class="form-control" id="loanCount" th:field="*{numberExtensions}" required readonly>
+    </div>
+  </form>
+  <a class="btn btn-secondary mt-3" th:href="@{/LoanList}">되돌아가기</a>
+</div>
+</body>
+</html>

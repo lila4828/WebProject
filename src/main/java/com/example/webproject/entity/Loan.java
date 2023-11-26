@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -24,10 +25,9 @@ public class Loan {
     private Date dateLoan;
 
     @Column
-    private Date returnDate;
+    private LocalDate returnDate;
 
     @Column
-    @ColumnDefault("0")
     private Long numberExtensions;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
@@ -37,6 +37,5 @@ public class Loan {
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="isbn", referencedColumnName = "isbn")
     private Book isbn;
-
 }
 

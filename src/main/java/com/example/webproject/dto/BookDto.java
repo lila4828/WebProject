@@ -1,5 +1,6 @@
 package com.example.webproject.dto;
 
+import com.example.webproject.entity.Book;
 import lombok.Getter;
 import lombok.Setter;
 

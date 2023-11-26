@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en", xmlns:th="http://www.thymeleaf.org">
+<head>
+    <p  style="padding:10px;" ></p>
+    <title>도서 대출</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <div>
+        <h2 style="text-align:center">도서 대출</h2>
+        <p style="text-align:right"><a th:href="@{/}"><button style="background: black;color: white;padding:5px 20px;">home</button></a></p>
+    </div>
+</head>
+<body>
+<div id="search_result" style="text-align: left; padding-top: 5px;">
+    <form th:action="@{/LoanList/Search}" method="post">
+        <div class="form-group" >
+            <div>
+                <input type="text" class="form-control" id="bookName" th:field="${searchName}" name=search size="40" required placeholder="도서명을 입력하시오.">
+            </div>
+            <a th:href="@{/Search}"><button type="submit" class="btn btn-primary" value="검색">검색</button></a>
+        </div>
+    </form>
+    <table style="table-layout: fixed; width: 421px">
+        <colgroup>
+            <col style="width: 105px">
+            <col style="width: 105px">
+            <col style="width: 106px">
+            <col style="width: 105px">
+        </colgroup>
+        <thead th:each="book : ${bookList}">
+            <tr>
+                <td rowspan="2">
+                    <img th:src="@{'/images/' + ${book.imageUrl}}" alt="Book Image" class="img-thumbnail">
+                </td>
+                <td>
+                    책 이름
+                    <p th:text="${book.bookName}"></p>
+                </td>
+                <td>
+                    지은이
+                    <p th:text="${book.author}"></p>
+                </td>
+                <td>
+                    발행년도
+                    <p th:text="${book.year}"></p>
+                </td>
+                <td rowspan="2">
+                    <div style="text-align: center">
+                        <a class="btn" th:href="@{'/LoanList/' + ${book.isbn}}">대출하기</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    ISBN
+                    <p th:text="${book.isbn}"></p>
+                </td>
+                <td>
+                    대출 가능 여부
+                    <p th:text="${book.loanAvailability}"></p>
+                </td>
+                <td>
+                    태그
+                    <p th:text="${book.tag}"></p>
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+</body>
+</html>

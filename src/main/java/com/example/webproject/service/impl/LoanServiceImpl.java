@@ -12,6 +12,7 @@ import com.example.webproject.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -30,6 +31,11 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
+    public Loan getLoanId(Long Id) {
+        return loanRepository.findById(Id).orElse(null);
+    }
+
+    @Override
     public List<Loan> getLoanList() {
         return loanRepository.findAll();
     }
@@ -45,18 +51,9 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public void bookLoan(LoanDto loanDto) {
-        Loan saveLoan = new Loan();
-        saveLoan.setDateLoan(loanDto.getDateLoan());
-
-        Member joinMember = memberRepository.findById(loanDto.getMemberId()).orElse(null);
-        saveLoan.setMemberID(joinMember);
-
-        Book joinBook = bookRepository.findById(loanDto.getIsbn()).orElse(null);
-        saveLoan.setIsbn(joinBook);
-
-        loanRepository.save(saveLoan);
-        bookService.changeLoanAvailability(joinBook.getIsbn());
+    public void bookLoan(Loan loan) {
+        loanRepository.save(loan);
+        bookService.changeLoanAvailability(loan.getIsbn().getIsbn());
     }
 
     @Override
@@ -71,14 +68,12 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public void returnLoan(Long id, LoanDto loanDto) {
+    public void returnLoan(Long id, LocalDate date) {
         Loan selectLoan = loanRepository.findById(id).orElse(null);
 
-        selectLoan.setReturnDate(loanDto.getReturnDate());
-
+        selectLoan.setReturnDate(date);
         loanRepository.save(selectLoan);
 
-        Book joinBook = bookRepository.findById(loanDto.getIsbn()).orElse(null);
-        bookService.changeLoanAvailability(joinBook.getIsbn());
+        bookService.changeLoanAvailability(selectLoan.getIsbn().getIsbn());
     }
 }
