@@ -31,7 +31,10 @@ public class MainController {
     }
 
     @GetMapping("/Login")
-    public String loginView() { return "view/LoginPage"; }
+    public String login() { return "view/Login"; }
+
+    @GetMapping("/Logout")
+    public String logout() { return "view/Logout"; }
 
     @GetMapping("/Error")
     public String errorView() { return "view/ErrorPage";}

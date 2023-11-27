@@ -1,0 +1,36 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <title>시큐리티 테스트</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body>
+<div layout:fragment="content">
+
+<div class="container my-3">
+<form th:action="@{/Login}" method="post">
+    <p style="font-size: 40px;" class="text-left">로그인</p>
+    <div th:if="${param.error}">
+        <p class="text-warning bg-dark text-center" style="font-size: 20px;">사용자ID 또는 비밀번호를 확인해 주세요.</p>
+    </div>
+    <div class="mb-3 col-sm-6">
+        <label for="username" class="form-label">사용자ID</label>
+        <input type="text" name="username" id="username" class="form-control">
+    </div>
+    <div class="mb-3  col-sm-6" >
+        <label for="password" class="form-label">비밀번호</label>
+        <input type="password" name="password" id="password" class="form-control">
+    </div>
+    <div class="mb-3  col-sm-6">
+        <button type="submit" class="btn btn-primary">로그인</button>
+    </div>
+</form>
+</div>
+</div>
+</body>
+</html>
