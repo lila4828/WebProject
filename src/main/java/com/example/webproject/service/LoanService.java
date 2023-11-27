@@ -11,7 +11,7 @@ public interface LoanService {
 
     public List<Loan> getLoanList();                       // 대출 현황 불러오기
 
-    public Long getCountLoan();                            // 총 대출 건수
+    public Long getCountLoan();                            // 총 대출 건수 가져오기
 
     public List<Loan> getLoanList(String memberId);        // 멤버 아이디로만 대출 현황 불러온다.
 

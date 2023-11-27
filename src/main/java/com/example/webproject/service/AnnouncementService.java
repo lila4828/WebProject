@@ -15,4 +15,5 @@ public interface AnnouncementService {
     public void changeNoticeContent(Long id, AnnouncementDto announcementDto);  // 공지사항 내용변경 제목과 내용 변경 가능
 
     public void deleteAnnouncement(Long id);    // 공지사항 지우기
+
 }

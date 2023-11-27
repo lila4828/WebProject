@@ -20,7 +20,7 @@
             </th>
             <th style="width:10px"></th>
             <th>
-                <a class="btn btn-success" th:href="@{/ManagerMember}">회원 계정 관리</a>
+                <a class="btn btn-success" th:href="@{/MemberinfoManege}">회원 정보 관리</a>
             </th>
             </div>
         <div class="col-lg-6 col-sm-12 text-lg-end text-center">
@@ -33,41 +33,29 @@
             </th>
         </div>
     </div>
-    <style type="text/css">
-        .tg  {border-collapse:collapse;border-spacing:0;}
-        .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-            overflow:hidden;padding:10px 5px;word-break:normal;}
-        .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-            font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-        .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
-        .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-    </style>
-    <form th:action="@{/Adminstrator}" method="post">
-        <table class="tg" style="undefinedtable-layout: fixed; width: 357px">
-            <colgroup>
-                <col style="width: 100px">
-                <col style="width: 60px">
-                <col style="width: 100px">
-                <col style="width: 60px">
-            </colgroup>
-            <thead>
-            <tr>
-                <th class="tg-c3ow">총 대출건수</th>
-                <th class="tg-0pky"><strong th:text="${loanCount}"></strong></th>
-                <th class="tg-c3ow">현재 대출 수</th>
-                <th class="tg-0pky"><strong th:text="${loanCount}"></strong></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="tg-c3ow">총 회원 수</td>
-                <td class="tg-0pky"><strong th:text="${memberCount}"></strong></td>
-                <td class="tg-c3ow">보유 도서 수</td>
-                <td class="tg-0pky"><strong th:text="${bookCount}"></strong></td>
-            </tr>
-            </tbody>
-        </table>
-    </form>
+    <table
+            border="3"
+            width="50%"
+            height="200"
+            cellspacing="5">
+        <caption>표 제목</caption>
+        <thead>
+
+        <tbody>
+        <tr align="center" bgcolor="white">
+            <th>대출 도서 권수</th>
+            <td><strong th:text="${loanCount}"></strong></td>
+            <td>현재 대출 수</td>
+            <td><strong th:text="${loanCount}"></strong></td>
+        </tr>
+        <tr align="center" bgcolor="white">
+            <td>총 회원 수</td>
+            <td><strong th:text="${memberCount}"></td>
+            <td>보유 도서 수</td>
+            <td><strong th:text="${bookCount}"></strong></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
