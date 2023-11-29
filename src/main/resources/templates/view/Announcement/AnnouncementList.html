@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>공지사항</title>
@@ -27,7 +27,7 @@
             <th><p th:text="*{announcement.noticeTitle}"></p></th>
             <th><p th:text="*{announcement.noticeContent}"></p></th>
             <th>
-                <div style="text-align: center">
+                <div sec:authorize="hasAuthority('ADMIN')" style="text-align: center">
                     <a class="btn btn-secondary mt-3" th:href="@{'/AnnouncementList/viewAnnouncement/' + ${announcement.getNoticeNumber()}}">View</a>
                     <a class="btn btn-secondary mt-3" th:href="@{'/AnnouncementList/editAnnouncement/' + ${announcement.getNoticeNumber()}}">Edit</a>
                     <a class="btn btn-secondary mt-3" th:href="@{'/AnnouncementList/deleteAnnouncement/' + ${announcement.getNoticeNumber()}}">delete</a>
@@ -41,7 +41,7 @@
             <th>
                 <a class="btn btn-success" th:href="@{/AnnouncementList/addAnnouncement}">공지사항 작성</a>
             </th>
-            <th style="width: 20px"></th>
+            <th style="width: 10px"></th>
             <th>
                 <a class="btn btn-success" th:href="@{/}">되돌아가기</a>
             </th>
