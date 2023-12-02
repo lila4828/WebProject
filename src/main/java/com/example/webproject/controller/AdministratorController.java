@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/Administrator")
+@RequestMapping("/Admin")
 public class AdministratorController {
     private final BookService bookService;
     private final MemberService memberService;
@@ -25,7 +25,7 @@ public class AdministratorController {
         this.announcementService = announcementService;
     }
 
-    @GetMapping()
+    @GetMapping("Administrator")
     public String administratorView(Model model) {
         Long loanCount = loanService.getCountLoan();
         Long memberCount = memberService.getMemberCount();
@@ -34,6 +34,6 @@ public class AdministratorController {
         model.addAttribute("memberCount", memberCount);
         model.addAttribute("bookCount", bookCount);
 
-        return "view/AdministratorPage";
+        return "view/Admin/AdministratorPage";
     }
 }

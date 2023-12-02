@@ -35,7 +35,12 @@ public class MainController {
 
     @GetMapping("/Logout")
     public String logout() { return "view/Logout"; }
+    @GetMapping("/LogoutSuccess")
+    public String logoutSuccess() { return "view/Logout"; }
 
     @GetMapping("/Error")
     public String errorView() { return "view/ErrorPage";}
+
+    @GetMapping("/RoleError")
+    public String roleErrorView() { return "view/RoleErrorPage";}
 }

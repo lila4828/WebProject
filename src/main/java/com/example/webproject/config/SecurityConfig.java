@@ -12,38 +12,38 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
     @Autowired
-    private UserSecurityService boardUserDetailsService;
-    //spring security 5.0 사용
+    private UserSecurityService userSecurityService;
+
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .formLogin()
                 .loginPage("/Login")
                 .defaultSuccessUrl("/", true) //로그인 성공시 이동 url
+
                 .and()
                 .logout()
-                .logoutUrl("/Logout")
+                .logoutUrl("/logout")
                 .invalidateHttpSession(true)
-                .logoutSuccessUrl("/Login")
-                .invalidateHttpSession(true)
-                .logoutSuccessUrl("/")
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/LogoutSuccess")
+
+
                 .and()
-                .authorizeRequests(authorizeRequests ->
-                        authorizeRequests
+                .authorizeRequests(authorizeRequests -> authorizeRequests
                                 .antMatchers("/", "/Login").permitAll()
-                                .antMatchers("/admin/**").hasAuthority("ADMIN")
-                                .antMatchers("/manager/**").hasAuthority("MANAGER")
-                                .anyRequest().authenticated() //그 외 request는 모두 authenticated되어야함
+                                .antMatchers("/Admin/**").hasAuthority("ADMIN")
+                                .anyRequest().authenticated()
                 )
                 .csrf().disable()
                 .exceptionHandling(exceptionHandling ->
                         exceptionHandling
-                                .accessDeniedPage("/accessDenied")
+                                .accessDeniedPage("/RoleError")
                 )
-                .userDetailsService(boardUserDetailsService);
+                .userDetailsService(userSecurityService);
         return http.build();
     }
-    //패스워드 암호화 처리
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();

@@ -1,6 +1,5 @@
 package com.example.webproject.config;
 
-
 import com.example.webproject.entity.Member;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
