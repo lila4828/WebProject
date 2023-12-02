@@ -31,33 +31,22 @@ public class LoanController {
 
     @GetMapping()
     public String LoanView(Model model) {
-        List<BookDto> bookDtoList = new ArrayList<>();
-
         model.addAttribute("searchName", "");
-        model.addAttribute("bookList", bookDtoList);
 
-        return "view/Loan/BookLoan";
+        return "view/Loan/SearchPage";
     }
 
-    @PostMapping("/Search")
-    public String BookSearchView(@ModelAttribute("searchName") String searchName,
+    @GetMapping("/Search")
+    public String BookSearchView(@RequestParam("searchName") String searchName,
                                  Model model)
     {
-        List<Book> bookList = bookService.getBookName(searchName);
-
+        List<Book> bookList;
         List<BookDto> bookDtoList = new ArrayList<>();
+
+        bookList = bookService.getBookName(searchName);
+
         for(Book book : bookList) {
-            BookDto bookDto = new BookDto();
-
-            bookDto.setImageUrl(book.getImageUrl());
-            bookDto.setIsbn(book.getIsbn());
-            bookDto.setBookName(book.getBookName());
-            bookDto.setAuthor(book.getAuthor());
-            bookDto.setYear(book.getYear());
-            bookDto.setLoanAvailability(book.getLoanAvailability());
-            bookDto.setNewBookAvailability(book.getNewBookAvailability());
-            bookDto.setTag(book.getTag().getTag());
-
+            BookDto bookDto = new BookDto(book);
             bookDtoList.add(bookDto);
         }
 
@@ -73,15 +62,18 @@ public class LoanController {
 
         model.addAttribute("Loan", new LoanDto());
         model.addAttribute("book", book);
-        model.addAttribute("date", new Date());
+        model.addAttribute("date", "");
 
         return "view/Loan/LoanAdd";
     }
 
     @PostMapping("/LoanAdd/{bookIsbn}")
-    public String LoanAdd(@PathVariable Long bookIsbn,
-                          @RequestParam("date") Date date) {
-        Book book = bookService.getBook(bookIsbn);
+    public String LoanAdd(@PathVariable String bookIsbn,
+                          @RequestParam("date") String date)
+    {
+
+
+        Book book = bookService.getBook((long) Integer.parseInt(bookIsbn));
 
         Loan loan = new Loan();
         loan.setDateLoan(date);

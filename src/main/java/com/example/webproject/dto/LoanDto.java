@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 public class LoanDto {
     private Long loanId;
-    private Date dateLoan;      // 대출 날짜
+    private String dateLoan;      // 대출 날짜
     private LocalDate returnDate;    // 반납 날짜
     private Long numberExtensions;
     private String memberId;    // 멤버아이디가 필수로 있어야된다.
