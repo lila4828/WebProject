@@ -27,6 +27,7 @@
         <span sec:authentication="name">님 반갑습니다.</span>
         <a th:href="@{/Login}" sec:authorize="isAnonymous()" ><button style="background: black;color: white;padding:5px 20px;">login</button></a>
         <a th:href="@{/Logout}" sec:authorize="isAuthenticated()" ><button style="background: black;color: white;padding:5px 20px;">Logout</button></a>
+        <a th:href="@{/MemberList/AddMember}" sec:authorize="isAnonymous()" ><button style="background: black;color: white;padding:5px 20px;">회원가입</button></a>
     </div>
     <div class="button-container">
         <a th:href="@{/LoanList}"><button class="main_btn">대출</button></a>&nbsp;

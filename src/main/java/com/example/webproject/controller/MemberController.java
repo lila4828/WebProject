@@ -2,8 +2,10 @@ package com.example.webproject.controller;
 
 import com.example.webproject.dto.MemberDto;
 import com.example.webproject.entity.Member;
+import com.example.webproject.entity.Role;
 import com.example.webproject.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,9 @@ import java.util.List;
 @RequestMapping("/MemberList")
 public class MemberController {
     private final MemberService memberService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
@@ -26,6 +31,26 @@ public class MemberController {
         model.addAttribute("memberList", memberList);
 
         return "view/Member/MemberList";
+    }
+    @GetMapping("/AddMember")
+    public String memberAdd(Model model) {
+        model.addAttribute("Member", new MemberDto());
+        return "view/Member/MemberAdd";
+    }
+    @PostMapping("/AddMember")
+    public String memberAdd(@ModelAttribute MemberDto memberDto, Model model) {
+        Member newMember = new Member();
+
+        newMember.setMemberId(memberDto.getMemberId());
+        newMember.setMemberPassword(passwordEncoder.encode(memberDto.getMemberPassword()));
+        newMember.setAddress(memberDto.getAddress());
+        newMember.setPhone(memberDto.getPhone());
+        newMember.setEmail(memberDto.getEmail());
+        newMember.setRole(Role.MEMBER);
+
+        memberService.saveMember(newMember);
+        model.addAttribute("member", newMember);
+        return "view/HomePage";
     }
     @GetMapping("viewMember/{id}")
     public String showMember(@PathVariable("id") String MemberID, Model model) {

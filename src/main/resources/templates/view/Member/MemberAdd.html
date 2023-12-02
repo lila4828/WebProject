@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4" style="text-align: center">회원가입</h1>
+    <form th:action="@{/MemberList/AddMember}" method="post">
+        <div class="form-group"  th:object="${Member}">
+            <label for="MemberId">아이디</label>
+            <input type="text" class="form-control" id="MemberId" th:field="*{memberId}"  required
+                   placeholder="사용자 아이디를 작성해 주세요">
+            <p></p>
+            <label for="MemberPassword">비밀번호</label>
+            <input type="text" class="form-control" id="MemberPassword" th:field="*{memberPassword}" required
+                   placeholder="사용자 비밀번호를 입력해 주세요">
+            <p></p>
+            <label for="MemberAddress">주소</label>
+            <input type="text" class="form-control" id="MemberAddress" th:field="*{address}"  required
+                   placeholder="사용자 주소를 입력해 주세요">
+            <p></p>
+            <label for="MemberPhone">전화번호</label>
+            <input type="text" class="form-control" id="MemberPhone" th:field="*{phone}"  required
+                   placeholder="사용자 전화번호를 입력해 주세요">
+            <p></p>
+            <label for="MemberEmail">이메일</label>
+            <input type="text" class="form-control" id="MemberEmail" th:field="*{email}"  required
+                   placeholder="사용자 이메일을 입력해 주세요">
+        </div>
+        <button type="submit" class="btn btn-success">회원가입</button>
+    </form>
+    <a class="btn btn-secondary mt-3" th:href="@{/}">되돌아가기</a>
+</div>
+</body>
+</html>
