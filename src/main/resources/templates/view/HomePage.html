@@ -19,18 +19,21 @@
     </style>
 </head>
 <body>
-    <div sec:authorize="hasRole('ADMIN')">
-        <a th:href="@{/Admin/Administrator}"><button style="background: black;color: white;padding:5px 20px;">관리자 메뉴</button></a>
+    <div style="text-align:right" sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/Admin}"><button style="background: black;color: white;padding:5px 20px;">관리자 메뉴</button></a>
     </div>
-    <div style="text-align:left">
+    <p style="padding:1px;"></p>
+    <div style="text-align:right">
         <span sec:authentication="name">님 반갑습니다.</span>
         <a th:href="@{/Login}" sec:authorize="isAnonymous()" ><button style="background: black;color: white;padding:5px 20px;">login</button></a>
         <a th:href="@{/Logout}" sec:authorize="isAuthenticated()" ><button style="background: black;color: white;padding:5px 20px;">Logout</button></a>
     </div>
-    <a th:href="@{/LoanList}"><button class="main_btn">대출</button></a>&nbsp;
-    <a th:href="@{/LoanList/LoanReturn}"><button class="main_btn">대출 반납/연장</button></a>&nbsp;
-    <a th:href="@{/SearchList}"><button class="main_btn">자료 검색</button></a>&nbsp;
-    <a th:href="@{/BoardList}"><button class="main_btn">게시판</button></a>
+    <div class="button-container">
+        <a th:href="@{/LoanList}"><button class="main_btn">대출</button></a>&nbsp;
+        <a th:href="@{/LoanList/LoanReturn}"><button class="main_btn">대출 반납/연장</button></a>&nbsp;
+        <a th:href="@{/SearchList}"><button class="main_btn">자료 검색</button></a>&nbsp;
+        <a th:href="@{/BoardList}"><button class="main_btn">게시판</button></a>
+    </div>
     <p style="padding:10px;"></p>
     <div>
         <table style="margin : auto; table-layout: fixed; width: 403px">

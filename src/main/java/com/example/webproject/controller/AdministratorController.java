@@ -2,15 +2,14 @@ package com.example.webproject.controller;
 
 import com.example.webproject.dto.BookDto;
 import com.example.webproject.entity.Book;
+import com.example.webproject.entity.Member;
 import com.example.webproject.entity.Tag;
 import com.example.webproject.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/Admin")
@@ -22,6 +21,9 @@ public class AdministratorController {
     private final TagService tagService;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     public AdministratorController(BookService bookService, MemberService memberService, LoanService loanService, AnnouncementService announcementService, TagService tagService) {
         this.bookService = bookService;
         this.memberService = memberService;
@@ -30,7 +32,7 @@ public class AdministratorController {
         this.tagService = tagService;
     }
 
-    @GetMapping("Administrator")
+    @GetMapping()
     public String administratorView(Model model) {
         Long loanCount = loanService.getCountLoan();
         Long memberCount = memberService.getMemberCount();
@@ -77,4 +79,17 @@ public class AdministratorController {
         return "view/BookView";
     }
 
+    @GetMapping("/changePassword/{id}")
+    public String showchangePassword(@PathVariable String MemberId, Model model) {
+        Member member = memberService.getMember(MemberId);
+
+        model.addAttribute("member", member);
+        return "redirect:/Admin";
+    }
+    @PostMapping("/changePassword/{id}")
+    public String changePassword(@PathVariable("id") String MemberId, @PathVariable String Password) {
+
+        memberService.changePassword(MemberId, passwordEncoder.encode(Password));
+        return "redirect:/Admin";
+    }
 }

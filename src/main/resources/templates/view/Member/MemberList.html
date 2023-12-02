@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 정보</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <p></p>
+    <h1 style="text-align: center">회원 목록</h1>
+    <p></p>
+    <table class="table">
+        <thead>
+        <tr style="text-align: center">
+            <th>멤버 번호</th>
+            <th>멤버 아이디</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member, i : ${memberList}">
+            <td style="text-align: center" th:text="${i.count}"></td>
+            <th><p th:text="*{member.memberId}"></p></th>
+            <th>
+                <a class="btn btn-secondary mt-3" th:href="@{'/MemberList/viewMember/' + ${member.getMemberId()}}">View</a>
+                <a class="btn btn-secondary mt-3" th:href="@{'/MemberList/deleteMember/' + ${member.getMemberId()}}">delete</a>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+    <table style="float:right">
+        <tr>
+            <th>
+                <a class="btn btn-success" th:href="@{/Admin}">되돌아가기</a>
+            </th>
+        </tr>
+    </table>
+</div>
+</body>
+</body>
+</html>
