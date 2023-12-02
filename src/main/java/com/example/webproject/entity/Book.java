@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -25,8 +26,8 @@ public class Book {
     @Column(nullable = false)
     private String author;  // 저자
 
-    @Column(nullable = false)
-    private Date year;      // 출시년도
+    @Column()
+    private String year;      // 출시년도
 
     @Column(nullable = false)
     private Boolean loanAvailability;   // 대출가능

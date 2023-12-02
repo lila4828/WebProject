@@ -25,73 +25,45 @@ public class BookSearchController {
     public String GoSearch(Model model) {
         model.addAttribute("selectSearch", "");
         model.addAttribute("searchName", "");
-        
+
         return "view/Search/SearchPage";
     }
 
     @GetMapping("/SearchBook")
-    public String Search(@ModelAttribute("selectSearch") String selectSearch,
-                         @ModelAttribute("searchName") String searchName,
+    public String Search(@RequestParam("selectSearch") String selectSearch,
+                         @RequestParam("searchName") String searchName,
                          Model model)
     {
         List<BookDto> bookDtoList = bookListGet(selectSearch, searchName);
 
-        int bookCount = 0;
-        for(BookDto ignored : bookDtoList) {
-            bookCount ++;
-        }
+        int bookCount = bookDtoList.size();
 
         model.addAttribute("selectSearch", selectSearch);
         model.addAttribute("searchName", searchName);
         model.addAttribute("bookList", bookDtoList);
         model.addAttribute("bookCount", bookCount);
 
-        return "view/Search/SearchPage";
-    }
-
-    @PostMapping("/SearchBook")
-    public String bookSearch(@ModelAttribute("selectSearch") String selectSearch,
-                             @ModelAttribute("searchName") String searchName,
-                             Model model)
-    {
-        List<BookDto> bookDtoList = bookListGet(selectSearch, searchName);
-
-        int bookCount = 0;
-        for(BookDto ignored : bookDtoList) {
-            bookCount ++;
-        }
-
-        model.addAttribute("selectSearch", selectSearch);
-        model.addAttribute("searchName", searchName);
-        model.addAttribute("bookList", bookDtoList);
-        model.addAttribute("bookCount", bookCount);
-
-        return "view/Search/SearchPage";
+        return "view/Search/BookSearch";
     }
 
     public List<BookDto> bookListGet(String selectSearch, String searchName) {
 
-        List<Book> bookList = new ArrayList<>();
-        if(selectSearch.equals("제목")) {
-            bookList = bookService.getBookName(searchName);
-        }
-        else if (selectSearch.equals("태그")) {
-            bookList = bookService.getBookByTag(searchName);
-        }
+        List<Book> bookList;
         List<BookDto> bookDtoList = new ArrayList<>();
-        for(Book book : bookList) {
-            BookDto bookDto = new BookDto();
 
-            bookDto.setImageUrl(book.getImageUrl());
-            bookDto.setIsbn(book.getIsbn());
-            bookDto.setBookName(book.getBookName());
-            bookDto.setAuthor(book.getAuthor());
-            bookDto.setYear(book.getYear());
-            bookDto.setLoanAvailability(book.getLoanAvailability());
-            bookDto.setNewBookAvailability(book.getNewBookAvailability());
-            bookDto.setTag(book.getTag().getTag());
-
-            bookDtoList.add(bookDto);
+        if(selectSearch.equals("title")) {
+            bookList = bookService.getBookName(searchName);
+            for(Book book : bookList) {
+                BookDto bookDto = new BookDto(book);
+                bookDtoList.add(bookDto);
+            }
+        }
+        else if (selectSearch.equals("tag")) {
+            bookList = bookService.getBookByTag(searchName);
+            for(Book book : bookList) {
+                BookDto bookDto = new BookDto(book);
+                bookDtoList.add(bookDto);
+            }
         }
         return  bookDtoList;
     }

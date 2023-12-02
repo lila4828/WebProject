@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>책 추가</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4" style="text-align: center">책 추가</h1>
+    <form th:action="@{/Admin/BookAdd}" method="post">
+        <div class="form-group"  th:object="${Book}">
+            <label for="BookISBN">ISBN</label>
+            <input type="text" class="form-control" id="BookISBN" th:field="*{isbn}"  required
+                   placeholder="ISBN을 작성해 주세요">
+            <p></p>
+            <label for="BookName">책 이름</label>
+            <input type="text" class="form-control" id="BookName" th:field="*{bookName}" required
+                   placeholder="책 이름을 작성해 주세요">
+            <p></p>
+            <label for="BookAuthor">저자</label>
+            <input type="text" class="form-control" id="BookAuthor" th:field="*{author}"  required
+                   placeholder="저자를 작성해 주세요">
+            <p></p>
+            <label for="BookYear">년도</label>
+            <input type="text" class="form-control" id="BookYear" th:field="*{year}"  required
+                   placeholder="저자를 작성해 주세요">
+            <p></p>
+            <label for="BookTag">태그</label>
+            <input type="text" class="form-control" id="BookTag" th:field="*{tag}"  required
+                   placeholder="태그를 작성해 주세요">
+        </div>
+        <button type="submit" class="btn btn-success">책 추가</button>
+    </form>
+    <a class="btn btn-secondary mt-3" th:href="@{/Admin}">되돌아가기</a>
+</div>
+</body>
+</html>

@@ -39,13 +39,14 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getBookName(String bookName) {
-        return bookRepository.findByBookName(bookName);
+        return bookRepository.findAllByBookName(bookName);
     }
 
     @Override
     public List<Book> getBookByTag(String tag) {
-        List<Book> bookList = null;
-        // 구현 중
+        Tag selectTag = tagService.getTagByName(tag);
+        List<Book> bookList = bookRepository.findAllByTag(selectTag);
+
         return bookList;
     }
 

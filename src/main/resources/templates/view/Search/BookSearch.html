@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>도서 통합 검색</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div>
+    <h2 style="text-align:center">도서 통합 검색</h2>
+    <p style="text-align:right"><a th:href="@{/}"><button class="btn btn-dark">home</button></a></p>
+</div>
+
+<div class="search_box container" style="text-align: center; padding-top: 5px;">
+        <div class="col">
+            <input style="text-align: center" type="text" class="form-control" id="selectSearch" th:value="${selectSearch}" name="selectSearch" readonly >
+        </div>
+        <div class="col">
+            <input style="text-align: center" type="text" class="form-control" id="searchName" th:value="${searchName}" name="searchName" readonly >
+        </div>
+    </div>
+
+    <div id="search_result" style="text-align: left; padding-top: 5px;">
+        <p class="total-text">해당되는 자료는 총 <strong th:text="${bookCount}"></strong>개의 대한 검색결과입니다. </p>
+
+        <th:block th:if="${#lists.isEmpty(bookList)}">
+            <div class="alert alert-info" role="alert">데이터가 없습니다.</div>
+        </th:block>
+
+        <th:block th:unless="${#lists.isEmpty(bookList)}">
+            <table class="table table-bordered table-hover" style="width: 100%; margin-top: 20px;">
+                <thead>
+                <tr>
+                    <th>이미지</th>
+                    <th>isbn</th>
+                    <th>책이름</th>
+                    <th>저자</th>
+                    <th>발행년도</th>
+                    <th>자료상태</th>
+                    <th>신규 도서 여부</th>
+                    <th>태그</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${bookList}">
+                    <td><img th:src="@{'/images/' + ${book.imageUrl}}" alt="Book Image" class="img-thumbnail"></td>
+                    <td th:text="${book.isbn}"></td>
+                    <td th:text="${book.bookName}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.year}"></td>
+                    <td th:text="${book.loanAvailability}"></td>
+                    <td th:text="${book.newBookAvailability}"></td>
+                    <td th:text="${book.tag}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </th:block>
+    </div>
+</div>
+</body>
+</html>
