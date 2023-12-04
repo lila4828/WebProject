@@ -21,8 +21,8 @@ public class Loan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long loanId;
 
-    @Column(nullable = false)
-    private Date dateLoan;
+    @Column
+    private String dateLoan;
 
     @Column
     private LocalDate returnDate;

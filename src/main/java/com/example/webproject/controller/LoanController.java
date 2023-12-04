@@ -4,16 +4,18 @@ import com.example.webproject.dto.BookDto;
 import com.example.webproject.dto.LoanDto;
 import com.example.webproject.entity.Book;
 import com.example.webproject.entity.Loan;
+import com.example.webproject.entity.Member;
 import com.example.webproject.service.BookService;
 import com.example.webproject.service.LoanService;
+import com.example.webproject.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -22,42 +24,33 @@ public class LoanController {
 
     private final LoanService loanService;
     private final BookService bookService;
+    private final MemberService memberService;
 
     @Autowired
-    public LoanController(LoanService loanService, BookService bookService) {
+    public LoanController(LoanService loanService, BookService bookService, MemberService memberService) {
         this.loanService = loanService;
         this.bookService = bookService;
+        this.memberService = memberService;
     }
 
     @GetMapping()
     public String LoanView(Model model) {
-        List<BookDto> bookDtoList = new ArrayList<>();
-
         model.addAttribute("searchName", "");
-        model.addAttribute("bookList", bookDtoList);
 
-        return "view/Loan/BookLoan";
+        return "view/Loan/SearchPage";
     }
 
-    @PostMapping("/Search")
-    public String BookSearchView(@ModelAttribute("searchName") String searchName,
+    @GetMapping("/Search")
+    public String BookSearchView(@RequestParam("searchName") String searchName,
                                  Model model)
     {
-        List<Book> bookList = bookService.getBookName(searchName);
-
+        List<Book> bookList;
         List<BookDto> bookDtoList = new ArrayList<>();
+
+        bookList = bookService.getBookName(searchName);
+
         for(Book book : bookList) {
-            BookDto bookDto = new BookDto();
-
-            bookDto.setImageUrl(book.getImageUrl());
-            bookDto.setIsbn(book.getIsbn());
-            bookDto.setBookName(book.getBookName());
-            bookDto.setAuthor(book.getAuthor());
-            bookDto.setYear(book.getYear());
-            bookDto.setLoanAvailability(book.getLoanAvailability());
-            bookDto.setNewBookAvailability(book.getNewBookAvailability());
-            bookDto.setTag(book.getTag().getTag());
-
+            BookDto bookDto = new BookDto(book);
             bookDtoList.add(bookDto);
         }
 
@@ -71,17 +64,24 @@ public class LoanController {
     public String BookLoan(@PathVariable Long bookIsbn, Model model) {
         Book book = bookService.getBook(bookIsbn);
 
+        if(!book.getLoanAvailability()) {
+            return "view/ErrorPage";
+        }
+
         model.addAttribute("Loan", new LoanDto());
         model.addAttribute("book", book);
-        model.addAttribute("date", new Date());
+        model.addAttribute("date", "");
 
         return "view/Loan/LoanAdd";
     }
 
     @PostMapping("/LoanAdd/{bookIsbn}")
-    public String LoanAdd(@PathVariable Long bookIsbn,
-                          @RequestParam("date") Date date) {
-        Book book = bookService.getBook(bookIsbn);
+    public String LoanAdd(@PathVariable String bookIsbn,
+                          @RequestParam("date") String date)
+    {
+
+
+        Book book = bookService.getBook(Long.parseLong(bookIsbn));
 
         Loan loan = new Loan();
         loan.setDateLoan(date);
@@ -89,15 +89,15 @@ public class LoanController {
         loan.setIsbn(book);
 
         // 구현 중 - 멤버 아이디를 어떻게 가져올지 모름
-        /*Member member = memberService.getMember(boardDto.getMemberId());
-        if(member == null) {
-            return "redirect:/error";
-        }
-        loan.setMemberID(member);*/
+//        Member member = memberService.getMember(memberId);
+//        if(member == null) {
+//            return "redirect:/error";
+//        }
+//        loan.setMemberID(memberid);
 
         loanService.bookLoan(loan);
 
-        return "redirect:/LoanList";
+        return "view/Loan/LoanSuccess";
     }
 
     @GetMapping("/LoanReturn")
@@ -110,6 +110,10 @@ public class LoanController {
 
     @GetMapping("/LoanReturn/{id}")
     public String LoanReturn(@PathVariable("id") Long LoanId) {
+        Loan loan = loanService.getLoanId(LoanId);
+        if(loan.getReturnDate()!=null) {
+            return "view/ErrorPage";
+        }
         loanService.returnLoan(LoanId, LocalDate.now());
 
         return "view/Loan/LoanReturn";

@@ -13,12 +13,12 @@ public interface LoanService {
 
     public Long getCountLoan();                            // 총 대출 건수 가져오기
 
-    public List<Loan> getLoanList(String memberId);        // 멤버 아이디로만 대출 현황 불러온다.
+    public List<Loan> getLoanList(String memberId);        // 멤버 아이디로 대출 현황 불러오기
 
-    public void bookLoan(Loan loan);                 // 대출 하기
+    public void bookLoan(Loan loan);                 // 대출하기
 
     public void extendLoan(Long id);                       // 대출 횟수 늘리기
 
-    public void returnLoan(Long id, LocalDate loanDto);       // 대출 반납하기
+    public void returnLoan(Long id, LocalDate loanDto);       // 반납하기
 
 }

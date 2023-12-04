@@ -35,7 +35,7 @@ public class AnnouncementController {
 
     @PostMapping("/addAnnouncement")
     public String addAnnouncement(@ModelAttribute AnnouncementDto announcementDto,
-                                  @RequestParam("selectNoticePriority") String NoticePriority ) {
+                                  @RequestParam("selectNoticePriority") String NoticePriority) {
         Announcement announcement = new Announcement();
         announcement.setNoticePriority(NoticePriority);
         announcement.setNoticeTitle(announcementDto.getNoticeTitle());

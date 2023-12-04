@@ -32,13 +32,14 @@ public class MemberController {
 
         return "view/Member/MemberList";
     }
-    @GetMapping("/AddMember")
-    public String memberAdd(Model model) {
+    @GetMapping("/addMember")
+    public String addMember(Model model) {
         model.addAttribute("Member", new MemberDto());
         return "view/Member/MemberAdd";
     }
-    @PostMapping("/AddMember")
-    public String memberAdd(@ModelAttribute MemberDto memberDto, Model model) {
+    @PostMapping("/addMember")
+    public String addMember(@ModelAttribute MemberDto memberDto,
+                            @RequestParam("selectRole") String Role) {
         Member newMember = new Member();
 
         newMember.setMemberId(memberDto.getMemberId());
@@ -46,13 +47,12 @@ public class MemberController {
         newMember.setAddress(memberDto.getAddress());
         newMember.setPhone(memberDto.getPhone());
         newMember.setEmail(memberDto.getEmail());
-        newMember.setRole(Role.MEMBER);
+        newMember.setRole(com.example.webproject.entity.Role.valueOf(Role));
 
         memberService.saveMember(newMember);
-        model.addAttribute("member", newMember);
-        return "view/HomePage";
+        return "view/Member/MemberSuccess";
     }
-    @GetMapping("viewMember/{id}")
+    @GetMapping("/viewMember/{id}")
     public String showMember(@PathVariable("id") String MemberID, Model model) {
         Member member = memberService.getMember(MemberID);
 

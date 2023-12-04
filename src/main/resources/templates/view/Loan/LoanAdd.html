@@ -48,7 +48,7 @@
                 </td>
                 <td>
                     태그
-                    <p th:text="${book.tag}"></p>
+                    <p th:text="${book.tag.getTag()}"></p>
                 </td>
             </tr>
             </thead>
@@ -58,12 +58,14 @@
         <form th:action="@{/LoanList/LoanAdd/{bookIsbn}(bookIsbn=${book.isbn})}" method="post">
             <div class="form-group">
                 <label for="start">대출일자</label>
-                <input type="date" id="start" name="loanStart" th:value="${date}" min="2023-01-01" max="2025-12-31" />
+                <div>
+                    <input type="text" class="form-control" id="start" name="date" th:text="${date}">
+                </div>
                 <p></p>
             </div>
             <button type="submit" class="btn btn-success">대출 완료</button>
         </form>
-        <a class="btn btn-secondary mt-3" th:href="@{/BoardList}">취소</a>
+        <a class="btn btn-secondary mt-3" th:href="@{/LoanList}">취소</a>
     </div>
 </body>
 </html>

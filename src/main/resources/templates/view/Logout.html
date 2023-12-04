@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:font-size="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Logout</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-
 <body>
-<p></p>
-<div class="container">
-    <p class="p-3 text-dark text-center" style="font-size: 30px;">로그아웃 되었습니다.</p>
+<div>
+    <p class="p-3 text-dark text-center" style="font-size: 30px;">로그아웃되었습니다</p>
 </div>
-<th>
-    <a class="btn btn-success" th:href="@{/}">되돌아가기</a>
-</th>
+<div style="text-align: center">
+    <a th:href="@{/}"><button>되돌아가기</button></a>
+</div>
 </body>
 </html>

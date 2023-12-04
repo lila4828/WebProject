@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en", xmlns:th="http://www.thymeleaf.org">
+<head>
+    <p  style="padding:10px;" ></p>
+    <title>도서 대출</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <div>
+        <h2 style="text-align:center">도서 대출</h2>
+        <p style="text-align:right"><a th:href="@{/}"><button style="background: black;color: white;padding:5px 20px;">home</button></a></p>
+    </div>
+</head>
+<body>
+<div id="search_result" style="text-align: left; padding-top: 5px;">
+    <form th:action="@{/LoanList/Search}" method="get">
+        <div class="form-group" >
+            <div>
+                <input type="text" class="form-control" id="bookName" th:text="${searchName}" name="searchName" size="40" required placeholder="통합 검색어를 입력하시오">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" value="검색">검색</button>
+    </form>
+</div>
+</body>
+</html>

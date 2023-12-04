@@ -21,6 +21,7 @@
             <th>분류 번호</th>
             <th>대출 일자</th>
             <th>연장 횟수</th>
+            <th>반납 일자</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -33,6 +34,7 @@
             <th><p style="text-align: center" th:text="*{loan.getIsbn().isbn}"></p></th>
             <th><p style="text-align: center" th:text="*{loan.dateLoan}"></p></th>
             <th><p style="text-align: center" th:text="*{loan.numberExtensions}"></p></th>
+            <th><p style="text-align: center" th:text="*{loan.returnDate}"></p></th>
             <th>
                 <div style="text-align: center">
                     <a class="btn btn-secondary mt-3" th:href="@{'/LoanList/LoanReturn/' + ${loan.loanId}}">반납</a>
