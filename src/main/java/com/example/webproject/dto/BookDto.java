@@ -12,7 +12,7 @@ public class BookDto {
     private Long isbn;                      // 책 isbn
     private String bookName;                // 책 이름
     private String author;                  // 저자
-    private String year;                      // 출시년도
+    private String year;                    // 출시년도
     private Boolean loanAvailability;       // 대출가능여부
     private Boolean newBookAvailability;    // 새로운 책 여부
     private String tag;                     // 태그이름

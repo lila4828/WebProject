@@ -27,7 +27,7 @@ public class Book {
     private String author;  // 저자
 
     @Column()
-    private String year;      // 출시년도
+    private String year;      // 책 출시 일자
 
     @Column(nullable = false)
     private Boolean loanAvailability;   // 대출가능

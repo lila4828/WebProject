@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -41,17 +42,13 @@ public class BoardController {
     }
 
     @PostMapping("/addBoard")
-    public String addBoard(@ModelAttribute BoardDto boardDto) {
+    public String addBoard(@ModelAttribute BoardDto boardDto, Principal principal) {
         Board board = new Board();
         board.setTitle(boardDto.getTitle());
         board.setContent(boardDto.getContent());
 
-        // 구현 중 - 멤버 아이디를 어떻게 가져올지 모름
-        /*Member member = memberService.getMember(boardDto.getMemberId());
-        if(member == null) {
-            return "redirect:/error";
-        }
-        board.setMemberId(member);*/
+        Member member = memberService.getMember(principal.getName());
+        board.setMemberId(member);
 
         boardService.saveBoard(board);
 

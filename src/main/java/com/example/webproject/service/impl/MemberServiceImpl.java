@@ -5,6 +5,7 @@ import com.example.webproject.entity.Member;
 import com.example.webproject.repository.MemberRepository;
 import com.example.webproject.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +14,14 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+
     @Autowired
-    public MemberServiceImpl(MemberRepository memberRepository) {
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public MemberServiceImpl(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
         this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -52,7 +58,7 @@ public class MemberServiceImpl implements MemberService {
     public void changePassword(String id, String newPassword) {
         Member selectMember = memberRepository.findById(id).orElse(null);
 
-        selectMember.setMemberPassword(newPassword);
+        selectMember.setMemberPassword(passwordEncoder.encode(newPassword));
 
         memberRepository.save(selectMember);
     }

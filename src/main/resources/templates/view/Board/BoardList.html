@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <title>게시판</title>
@@ -23,13 +23,13 @@
     <tbody>
     <tr th:each="board, i : ${boardList}">
       <td style="text-align: center;" th:text="${i.count}"></td>
-      <th><p style="text-align: center" th:text="*{board.getMemberId()}"></p></th>
+      <th><p style="text-align: center" th:text="*{board.memberId.getMemberId()}"></p></th>
       <th><p style="text-align: center;height: 50px;width: 250px;" th:text="*{board.title}"></p></th>
-      <th><p style="text-align: center;width: 60px;" th:text="${commentCount}"></p></th>
+      <th><p style="text-align: center;width: 60px;"></p></th>
       <th>
         <div style="text-align: center">
           <a class="btn btn-secondary mt-3" th:href="@{'/BoardList/viewBoard/' + ${board.getBoardNumber()}}">View</a>
-          <a class="btn btn-secondary mt-3" th:href="@{'/BoardList/editBoard/' + ${board.getBoardNumber()}}">Edit</a>
+          <a class="btn btn-secondary mt-3" sec:authorize="hasAuthority('ADMIN')" th:href="@{'/BoardList/editBoard/' + ${board.getBoardNumber()}}">Edit</a>
         </div>
       </th>
     </tr>

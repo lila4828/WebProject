@@ -10,10 +10,6 @@
     <h1 class="mb-4" style="text-align: center">게시판 작성</h1>
     <form th:action="@{/BoardList/addBoard}" method="post">
         <div class="form-group"  th:object="${board}">
-            <label for="boardCreate">작성자</label>
-            <input type="text" class="form-control" id="boardCreate" th:field="*{title}"  required
-                   placeholder="작성자를 작성해 주세요">
-            <p></p>
             <label for="boardTitle">제목</label>
             <input type="text" class="form-control" id="boardTitle" th:field="*{title}" required
                    placeholder="제목을 작성해 주세요">

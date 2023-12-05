@@ -23,15 +23,15 @@ public class SecurityConfig {
 
                 .and()
                 .logout()
-                .logoutUrl("/logout")
+                .logoutUrl("/Logout")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/LogoutSuccess")
+                .logoutSuccessUrl("/")
 
 
                 .and()
                 .authorizeRequests(authorizeRequests -> authorizeRequests
-                                .antMatchers("/", "/Login").permitAll()
+                                .antMatchers("/", "/Login", "/MemberList/**").permitAll()
                                 .antMatchers("/Admin/**").hasAuthority("ADMIN")
                                 .anyRequest().authenticated()
                 )

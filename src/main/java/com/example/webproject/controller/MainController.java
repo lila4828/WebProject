@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -22,8 +23,13 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String mainView(Model model) {
+    public String mainView(Model model, Principal principal) {
         List<Announcement> announcementList = announcementService.getAnnouncementList();
+
+        if(principal != null) {
+            String userId = principal.getName();
+            model.addAttribute("userId", userId);
+        }
 
         model.addAttribute("announcementList", announcementList);
 
@@ -35,8 +41,6 @@ public class MainController {
 
     @GetMapping("/Logout")
     public String logout() { return "view/Logout"; }
-    @GetMapping("/LogoutSuccess")
-    public String logoutSuccess() { return "view/Logout"; }
 
     @GetMapping("/Error")
     public String errorView() { return "view/ErrorPage";}

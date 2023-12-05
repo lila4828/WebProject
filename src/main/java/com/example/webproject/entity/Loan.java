@@ -1,7 +1,6 @@
 package com.example.webproject.entity;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,7 +21,7 @@ public class Loan {
     private Long loanId;
 
     @Column
-    private String dateLoan;
+    private LocalDate dateLoan;
 
     @Column
     private LocalDate returnDate;
@@ -37,5 +36,6 @@ public class Loan {
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="isbn", referencedColumnName = "isbn")
     private Book isbn;
+
 }
 

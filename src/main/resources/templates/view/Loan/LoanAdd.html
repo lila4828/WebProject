@@ -9,6 +9,16 @@
         <h2 style="text-align:center">도서 대출</h2>
         <p style="text-align:right"><a th:href="@{/}"><button style="background: black;color: white;padding:5px 20px;">home</button></a></p>
     </div>
+    <script type="text/javascript">
+        window.onload = function() {
+            var today = new Date();
+            console.log("today.toISOString() >>>" + today.toISOString());
+            today = today.toISOString().slice(0, 10);
+            console.log("today >>>> " + today);
+            var bir = document.getElementById("todayBirthday");
+            bir.value = today;
+        }
+    </script>
 </head>
 <body>
 <div class="container mt-4">
@@ -57,9 +67,9 @@
     <div>
         <form th:action="@{/LoanList/LoanAdd/{bookIsbn}(bookIsbn=${book.isbn})}" method="post">
             <div class="form-group">
-                <label for="start">대출일자</label>
+                <label>대출일자</label>
                 <div>
-                    <input type="text" class="form-control" id="start" name="date" th:text="${date}">
+                    <input type="date" id="todayBirthday">
                 </div>
                 <p></p>
             </div>

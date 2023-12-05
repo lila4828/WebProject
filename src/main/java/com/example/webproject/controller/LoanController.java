@@ -9,13 +9,14 @@ import com.example.webproject.service.BookService;
 import com.example.webproject.service.LoanService;
 import com.example.webproject.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -70,30 +71,25 @@ public class LoanController {
 
         model.addAttribute("Loan", new LoanDto());
         model.addAttribute("book", book);
-        model.addAttribute("date", "");
 
         return "view/Loan/LoanAdd";
     }
 
     @PostMapping("/LoanAdd/{bookIsbn}")
-    public String LoanAdd(@PathVariable String bookIsbn,
-                          @RequestParam("date") String date)
-    {
-
+    public String LoanAdd(@PathVariable String bookIsbn, Principal principal) {
 
         Book book = bookService.getBook(Long.parseLong(bookIsbn));
 
         Loan loan = new Loan();
-        loan.setDateLoan(date);
+        loan.setDateLoan(LocalDate.now());
         loan.setNumberExtensions(0L);
         loan.setIsbn(book);
 
-        // 구현 중 - 멤버 아이디를 어떻게 가져올지 모름
-//        Member member = memberService.getMember(memberId);
-//        if(member == null) {
-//            return "redirect:/error";
-//        }
-//        loan.setMemberID(memberid);
+        Member member = memberService.getMember(principal.getName());
+        if(member == null) {
+            return "redirect:/error";
+        }
+        loan.setMemberID(member);
 
         loanService.bookLoan(loan);
 

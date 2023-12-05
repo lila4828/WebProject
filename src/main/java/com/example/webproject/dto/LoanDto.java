@@ -5,13 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Setter
 public class LoanDto {
     private Long loanId;
-    private String dateLoan;      // 대출 날짜
+    private LocalDate dateLoan;      // 대출 날짜
     private LocalDate returnDate;    // 반납 날짜
     private Long numberExtensions;
     private String memberId;    // 멤버아이디가 필수로 있어야된다.

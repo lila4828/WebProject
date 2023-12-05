@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/Admin")
 public class AdministratorController {
@@ -19,9 +21,6 @@ public class AdministratorController {
     private final LoanService loanService;
     private final AnnouncementService announcementService;
     private final TagService tagService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public AdministratorController(BookService bookService, MemberService memberService, LoanService loanService, AnnouncementService announcementService, TagService tagService) {
@@ -79,17 +78,20 @@ public class AdministratorController {
         return "view/BookView";
     }
 
-    @GetMapping("/changePassword/{id}")
-    public String showchangePassword(@PathVariable String MemberId, Model model) {
-        Member member = memberService.getMember(MemberId);
+    @GetMapping("/ChangePassword")
+    public String showChangePassword(Model model) {
 
-        model.addAttribute("member", member);
-        return "redirect:/Admin";
+        model.addAttribute("newPassword", "");
+
+        return "view/Admin/PasswordChange";
     }
-    @PostMapping("/changePassword/{id}")
-    public String changePassword(@PathVariable("id") String MemberId, @PathVariable String Password) {
 
-        memberService.changePassword(MemberId, passwordEncoder.encode(Password));
+    @PostMapping("/ChangePassword")
+    public String changePassword(@RequestParam("newPassword") String password,
+                                 Principal principal) {
+
+        memberService.changePassword(principal.getName(), password);
+
         return "redirect:/Admin";
     }
 }

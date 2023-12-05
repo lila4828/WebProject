@@ -24,15 +24,17 @@
     </style>
 </head>
 <body>
-<div style="text-align:right" sec:authorize="hasRole('ADMIN')">
+<div sec:authorize="hasAuthority('ADMIN')" style="text-align:right">
     <a th:href="@{/Admin}"><button style="background: black;color: white;padding:5px 20px;">관리자 메뉴</button></a>
 </div>
 <p style="padding:1px;"></p>
 <div style="text-align:right">
-    <span sec:authentication="name">님 반갑습니다.</span>
-    <a th:href="@{/Login}" sec:authorize="isAnonymous()" ><button class="sub_btn">login</button></a>
-    <a th:href="@{/Logout}" sec:authorize="isAuthenticated()" ><button class="sub_btn">Logout</button></a>
-    <a th:href="@{/MemberList/addMember}" sec:authorize="isAnonymous()" ><button class="sub_btn">회원가입</button></a>
+    <h5 style="display: inline" sec:authorize="isAuthenticated()" >
+        <strong th:text="${userId}"></strong>님 환영합니다.
+    </h5>
+    <a sec:authorize="isAnonymous()" th:href="@{/Login}"><button class="sub_btn">login</button></a>
+    <a sec:authorize="isAuthenticated()" th:href="@{/Logout}" ><button class="sub_btn">Logout</button></a>
+    <a sec:authorize="isAnonymous()" th:href="@{/MemberList/addMember}" ><button class="sub_btn">회원가입</button></a>
 </div>
 <div class="button-container">
     <a th:href="@{/LoanList}"><button class="main_btn">대출</button></a>&nbsp;

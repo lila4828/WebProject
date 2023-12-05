@@ -29,11 +29,6 @@
             <label for="MemberEmail">이메일</label>
             <input type="text" class="form-control" id="MemberEmail" th:field="*{email}"  required
                    placeholder="사용자 이메일을 입력해 주세요">
-            <select id="Role", th:name="selectRole">
-                <option value="선택"> 선택 </option>
-                <option value="ADMIN">관리자</option>
-                <option value="MEMBER">멤버</option>
-            </select>
         </div>
         <button type="submit" class="btn btn-success">회원가입</button>
     </form>

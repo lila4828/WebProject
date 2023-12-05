@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>공지사항 세부내용</title>
@@ -19,7 +19,8 @@
                       readonly style="resize: none;height: 10em;"></textarea>
         </div>
     </form>
-    <a class="btn btn-secondary mt-3" th:href="@{/AnnouncementList}">되돌아가기</a>
+    <a class="btn btn-secondary mt-3" sec:authorize="hasAuthority('ADMIN')" th:href="@{/AnnouncementList}">되돌아가기</a>
+    <a class="btn btn-secondary mt-3" sec:authorize="hasAuthority('MEMBER')" th:href="@{/}">되돌아가기</a>
 </div>
 </body>
 </html>
