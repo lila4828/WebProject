@@ -65,6 +65,6 @@ public class BookSearchController {
                 bookDtoList.add(bookDto);
             }
         }
-        return  bookDtoList;
+        return bookDtoList;
     }
 }

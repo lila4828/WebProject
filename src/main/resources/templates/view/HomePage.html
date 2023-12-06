@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <p style="padding:10px;" ></p>
-    <title>도서관리시스템</title>
+    <title>도서 관리 시스템</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <h1><p style="text-align:center">도서 관리 시스템</p></h1>
     <style>
@@ -34,7 +34,7 @@
     </h5>
     <a sec:authorize="isAnonymous()" th:href="@{/Login}"><button class="sub_btn">login</button></a>
     <a sec:authorize="isAuthenticated()" th:href="@{/Logout}" ><button class="sub_btn">Logout</button></a>
-    <a sec:authorize="isAnonymous()" th:href="@{/MemberList/addMember}" ><button class="sub_btn">회원가입</button></a>
+    <a sec:authorize="isAnonymous()" th:href="@{/MemberList/AddMember}" ><button class="sub_btn">회원가입</button></a>
 </div>
 <div class="button-container">
     <a th:href="@{/LoanList}"><button class="main_btn">대출</button></a>&nbsp;

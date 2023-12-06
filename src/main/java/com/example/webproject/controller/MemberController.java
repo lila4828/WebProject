@@ -32,12 +32,12 @@ public class MemberController {
 
         return "view/Member/MemberList";
     }
-    @GetMapping("/addMember")
+    @GetMapping("/AddMember")
     public String addMember(Model model) {
         model.addAttribute("Member", new MemberDto());
         return "view/Member/MemberAdd";
     }
-    @PostMapping("/addMember")
+    @PostMapping("/AddMember")
     public String addMember(@ModelAttribute MemberDto memberDto) {
         Member newMember = new Member();
 

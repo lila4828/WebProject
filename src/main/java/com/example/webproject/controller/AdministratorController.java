@@ -1,8 +1,10 @@
 package com.example.webproject.controller;
 
 import com.example.webproject.dto.BookDto;
+import com.example.webproject.dto.MemberDto;
 import com.example.webproject.entity.Book;
 import com.example.webproject.entity.Member;
+import com.example.webproject.entity.Role;
 import com.example.webproject.entity.Tag;
 import com.example.webproject.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class AdministratorController {
     private final LoanService loanService;
     private final AnnouncementService announcementService;
     private final TagService tagService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public AdministratorController(BookService bookService, MemberService memberService, LoanService loanService, AnnouncementService announcementService, TagService tagService) {
@@ -76,6 +81,26 @@ public class AdministratorController {
         bookService.saveBook(newBook);
         model.addAttribute("Book", newBook);
         return "view/BookView";
+    }
+
+    @GetMapping("/AddAdmin")
+    public String addAdmin(Model model) {
+        model.addAttribute("Admin", new MemberDto());
+        return "view/Admin/AdminAdd";
+    }
+    @PostMapping("/AddAdmin")
+    public String addAdmin(@ModelAttribute MemberDto memberDto) {
+        Member newAdmin = new Member();
+
+        newAdmin.setMemberId(memberDto.getMemberId());
+        newAdmin.setMemberPassword(passwordEncoder.encode(memberDto.getMemberPassword()));
+        newAdmin.setAddress(memberDto.getAddress());
+        newAdmin.setPhone(memberDto.getPhone());
+        newAdmin.setEmail(memberDto.getEmail());
+        newAdmin.setRole(Role.ADMIN);
+
+        memberService.saveMember(newAdmin);
+        return "view/Admin/AdminSuccess";
     }
 
     @GetMapping("/ChangePassword")

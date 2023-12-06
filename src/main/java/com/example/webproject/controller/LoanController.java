@@ -123,6 +123,10 @@ public class LoanController {
         loanService.extendLoan(LoanId);
         Loan loan = loanService.getLoanId(LoanId);
 
+        if(loan.getReturnDate()!=null) {
+            return "view/ErrorPage";
+        }
+
         LoanDto loanDto = new LoanDto(loan);
         model.addAttribute("Loan", loanDto);
 

@@ -27,4 +27,7 @@ public class Announcement {
     @Column(nullable = false)
     private String noticeContent;
 
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name="memberId", referencedColumnName = "memberId")
+    private Member memberId;
 }
