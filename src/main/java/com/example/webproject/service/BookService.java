@@ -17,6 +17,8 @@ public interface BookService {
     
     public List<Book> getBookByTag(String tag);       // 태그 이름으로 리스트 가져오기
 
+    public List<Book> getRecommendBookList();           // 추천 책 4개 리스트 가져오기
+
     public void saveBook(Book book);                    // 책 저장하기
     
     public void addTag(Long isbn, TagDto tagDto);       // 책에 태그 추가

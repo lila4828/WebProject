@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>책 추가</title>
+    <title>도서 추가</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-4">
-    <h1 class="mb-4" style="text-align: center">책 추가</h1>
+    <h1 class="mb-4" style="text-align: center">도서 추가</h1>
     <form th:action="@{/Admin/BookAdd}" method="post">
         <div class="form-group"  th:object="${Book}">
             <label for="BookISBN">ISBN</label>

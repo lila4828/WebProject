@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -48,6 +50,20 @@ public class BookServiceImpl implements BookService {
         List<Book> bookList = bookRepository.findAllByTag(selectTag);
 
         return bookList;
+    }
+
+    @Override
+    public List<Book> getRecommendBookList() {
+        List<Book> selectBookList = bookRepository.findAllByNewBookAvailability(true);
+
+        selectBookList.sort(new Comparator<Book>(){
+            @Override
+            public int compare(Book o1, Book o2) {
+                return o2.getYear().compareTo(o1.getYear());
+            }
+        });
+
+        return selectBookList;
     }
 
     @Override

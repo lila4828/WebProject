@@ -1,7 +1,9 @@
 package com.example.webproject.controller;
 
 import com.example.webproject.entity.Announcement;
+import com.example.webproject.entity.Book;
 import com.example.webproject.service.AnnouncementService;
+import com.example.webproject.service.BookService;
 import com.example.webproject.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +16,12 @@ import java.util.List;
 @Controller
 public class MainController {
     private final AnnouncementService announcementService;
-    private final MemberService memberService;
+    private final BookService bookService;
 
     @Autowired
-    public MainController(AnnouncementService announcementService, MemberService memberService) {
+    public MainController(AnnouncementService announcementService, BookService bookService) {
         this.announcementService = announcementService;
-        this.memberService = memberService;
+        this.bookService = bookService;
     }
 
     @GetMapping("/")
@@ -32,6 +34,13 @@ public class MainController {
         }
 
         model.addAttribute("announcementList", announcementList);
+
+        List<Book> bookList = bookService.getRecommendBookList();
+
+        model.addAttribute("Book1", bookList.get(0));
+        model.addAttribute("Book2", bookList.get(1));
+        model.addAttribute("Book3", bookList.get(2));
+        model.addAttribute("Book4", bookList.get(3));
 
         return "view/HomePage";
     }

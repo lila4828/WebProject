@@ -36,6 +36,7 @@
     <a sec:authorize="isAuthenticated()" th:href="@{/Logout}" ><button class="sub_btn">Logout</button></a>
     <a sec:authorize="isAnonymous()" th:href="@{/MemberList/AddMember}" ><button class="sub_btn">회원가입</button></a>
 </div>
+<p style="padding:10px;"></p>
 <div class="button-container">
     <a th:href="@{/LoanList}"><button class="main_btn">대출</button></a>&nbsp;
     <a th:href="@{/LoanList/LoanReturn}"><button class="main_btn">대출 반납/연장</button></a>&nbsp;
@@ -66,6 +67,25 @@
             <td></td>
         </tr>
         </tbody>
+    </table>
+</div>
+<p style="padding:200px;"></p>
+<div>
+    <table style="margin-left:auto; margin-right:auto; table-layout: fixed; width: 421px">
+        <colgroup>
+            <col style="width: 105px">
+            <col style="width: 105px">
+            <col style="width: 106px">
+            <col style="width: 105px">
+        </colgroup>
+        <thead>
+        <tr>
+            <td><img th:src="@{'/images/' + ${Book1.imageUrl}}" alt="Book Image" ></td>
+            <td><img th:src="@{'/images/' + ${Book2.imageUrl}}" alt="Book Image" ></td>
+            <td><img th:src="@{'/images/' + ${Book3.imageUrl}}" alt="Book Image" ></td>
+            <td><img th:src="@{'/images/' + ${Book4.imageUrl}}" alt="Book Image" ></td>
+        </tr>
+        </thead>
     </table>
 </div>
 </body>
